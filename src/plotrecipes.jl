@@ -1,7 +1,9 @@
 using RecipesBase
 
+using .Pose
 
-@recipe function f(pose::SmoothCurves.Pose)
+
+@recipe function f(pose::Pose)
     aspect_ratio --> :equal
     arrow --> true
     seriescolor --> 1
@@ -19,9 +21,9 @@ using RecipesBase
     end
 end
 
-@recipe function f(curve::SmoothCurves.Curve; spacing=0.1)
+@recipe function f(curve::curves.Curve; spacing=0.1)
     aspect_ratio --> :equal
     label --> ""
 
-    SmoothCurves.point(curve, [0:spacing:length(curve);])
+    curves.point(curve, [0:spacing:length(curve);])
 end
