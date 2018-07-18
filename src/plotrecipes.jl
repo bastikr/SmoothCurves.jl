@@ -23,5 +23,5 @@ end
     aspect_ratio --> :equal
     label --> ""
 
-    SmoothCurves.evaluate(curve, [0:spacing:length(curve);])
+    SmoothCurves.point(curve, [0:spacing:length(curve);])
 end
