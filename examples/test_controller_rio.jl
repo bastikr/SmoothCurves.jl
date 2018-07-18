@@ -2,7 +2,7 @@ using Revise
 using SmoothCurves
 
 # Path
-λ = 50.
+λ = 5000.
 p0 = [-4, 2]
 p1 = [0.0, 0.0]
 p2 = [-2, 4]
@@ -67,3 +67,11 @@ plt_tw = plot(tvec, w, ylabel="w", label="")
 
 plt_c = plot(plt_tx, plt_ty, plt_tv, plt_tw, layout=(4,1))
 plot(plt_xy, plt_c, size=(1200, 600))
+
+
+@gif for p in poses
+    plt_xy = plot(C; spacing=0.05, color=:black)
+    plot!(plt_xy, x, y)
+    plot!(p, color=3)
+    # plot(plt_xy, plt_c, size=(1200, 600))
+end every 5
