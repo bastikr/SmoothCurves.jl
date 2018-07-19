@@ -12,7 +12,6 @@ end
 using .curves: Pose
 
 
-include("pose.jl")
 include("control.jl")
 
 module controllers
