@@ -11,31 +11,28 @@ struct PolyCurve <: Curve
     end
 end
 
-Base.length(p::PolyCurve) = p.cumlengths[end]
+Base.length(C::PolyCurve) = C.cumlengths[end]
 
-function point(P::PolyCurve, l::Float64)
-    if l < 0 || l > P.cumlengths[end]
+function dispatch(f, C::PolyCurve, s::Float64)
+    if s < 0 || s > C.cumlengths[end]
         throw(DomainError("Out of Bounds"))
     end
-    i = findfirst(x->(x-l>0), P.cumlengths)
-    l_i = l
+    i = findfirst(x->(x-s>0), C.cumlengths)
+    s_i = s
     if (i>1)
-        l_i -= P.cumlengths[i-1]
+        s_i -= C.cumlengths[i-1]
     end
-    point(P.curves[i], l_i)
+    f(C.curves[i], s_i)
 end
 
-function angle(P::PolyCurve, l::Float64)
-    if l < 0 || l > P.cumlengths[end]
-        throw(DomainError("Out of Bounds"))
-    end
-    i = findfirst(x->(x-l>=0), P.cumlengths)
-    l_i = l
-    if (i>1)
-        l_i -= P.cumlengths[i-1]
-    end
-    angle(P.curves[i], l_i)
-end
+l(C::PolyCurve, s::Float64) = dispatch(l, C, s)
+dl(C::PolyCurve, s::Float64) = dispatch(dl, C, s)
+dθ(C::PolyCurve, s::Float64) = dispatch(dθ, C, s)
+curvature(C::PolyCurve, s::Float64) = dispatch(curvature, C, s)
+dcurvature(C::PolyCurve, s::Float64) = dispatch(dcurvature, C, s)
+angle(C::PolyCurve, s::Float64) = dispatch(angle, C, s)
+point(C::PolyCurve, s::Float64) = dispatch(point, C, s)
+
 
 function construct_curve(λ, p0, p1, p2)
     v0 = p1 - p0
