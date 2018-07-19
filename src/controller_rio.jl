@@ -5,7 +5,7 @@ export State, ControllerParameters, control
 import ...curves: pose
 
 using ...curves: Curve
-using ...Pose
+using ..Pose
 using ...Control
 
 using Optim
@@ -31,6 +31,17 @@ ControllerParameters(; τ_xy=nothing, τ_ϕ=nothing, K_ϕ=nothing, K_mov=nothing
 
 
 import Base.-
+
+function dr_dt(K_ϕ::Float64, q::Pose, r::Float64, C::Curve)
+    e = q - pose(C, r)
+    v_des = 1.
+    ω_des = 1.
+    ω_des′ = 1
+    v_des′ = 1
+    num = q.v*v_des*cos(e.ϕ) + K_ϕ^2*q.ω*ω_des
+    denum = v_des^2 - ω_des*v_des*e.y + K_ϕ^2*ω_des^2 - K_ϕ^2*e.ϕ*ω_des′ - e.x*v_des′
+    return num/denum
+end
 
 function (-)(state_real::Pose, pose_desired::Pose)
     dx = state_real.x - pose_desired.x
@@ -58,14 +69,14 @@ function distance(K_ϕ::Float64, p0::Pose, p1::Pose)
 end
 
 function minimize_distance(K_ϕ, p0::Pose, C::Curve, lmin, lmax)
-    result = optimize(l->distance(K_ϕ, p0, Pose(pose(C, l)...)), lmin, lmax)
+    result = optimize(l->distance(K_ϕ, p0, pose(C, l)), lmin, lmax)
     return result.minimizer[1]
 end
 
 function control(params::ControllerParameters, dt::Float64, t::Float64, u::Control, state::State, C::Curve)
     s = minimize_distance(params.K_ϕ, state.pose, C, max(params.s-0.3, 0), params.s+0.3)
     params.s = s
-    e = pose(state) - Pose(pose(C, s)...)
+    e = pose(state) - pose(C, s)
 
     cv = e.x*cos(e.phi) + e.y*sin(e.phi)
     cw = params.K_ϕ*e.phi

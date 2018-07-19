@@ -20,7 +20,7 @@ function point(C::Line, l::Float64)
     if l < 0 || l > C.l1
         throw(DomainError("l has to be between 0 and l1"))
     end
-    C.origin + l*C.direction
+    Point((C.origin + l*C.direction)...)
 end
 
 function angle(C::Line, l::Float64)

@@ -1,46 +1,33 @@
 import Base.length
 import Base.angle
 
+using StaticArrays
+
 abstract type Curve end
 
+Point = StaticArrays.SVector
+
+# struct Point
+#     x::Float64
+#     y::Float64
+# end
+
+
+struct Pose
+    x::Float64
+    y::Float64
+    phi::Float64
+end
 
 function pose(C::Curve, l::Float64)
     x, y = point(C, l)
     phi = angle(C, l)
-    return x, y, phi
+    return Pose(x, y, phi)
 end
 
+x(p::Point) = p[1]
+y(p::Point) = p[2]
 
-function point(C::Curve, lvec::Vector{Float64})
-    xvec = Float64[]
-    yvec = Float64[]
-    for l=lvec
-        x, y = point(C, l)
-        push!(xvec, x)
-        push!(yvec, y)
-    end
-    return xvec, yvec
-end
-
-function angle(C::Curve, lvec::Vector{Float64})
-    phivec = Float64[]
-    for l=lvec
-        phi = angle(C, l)
-        push!(phivec, phi)
-    end
-    return phivec
-end
-
-function pose(C::Curve, lvec::Vector{Float64})
-    xvec = Float64[]
-    yvec = Float64[]
-    phivec = Float64[]
-    for l=lvec
-        x, y = point(C, l)
-        push!(xvec, x)
-        push!(yvec, y)
-        phi = angle(C, l)
-        push!(phivec, phi)
-    end
-    return xvec, yvec, phivec
-end
+x(p::Pose) = p.x
+y(p::Pose) = p.y
+phi(p::Pose) = p.phi

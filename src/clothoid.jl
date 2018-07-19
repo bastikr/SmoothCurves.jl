@@ -1,6 +1,6 @@
 import Base.length
 
-using QuadGK: quadgk
+using QuadGK
 using StaticArrays: SVector
 
 
@@ -21,8 +21,8 @@ function smax_from_deviation(λ, dphi)
 end
 
 function clothoid_in_standardorientation(λ::Float64, s::Float64)
-    value_cos, err = quadgk(x::Float64->cos(λ*x^2), 0., s)
-    value_sin, err = quadgk(x::Float64->sin(λ*x^2), 0., s)
+    value_cos, err = QuadGK.quadgk(x::Float64->cos(λ*x^2), 0., s)
+    value_sin, err = QuadGK.quadgk(x::Float64->sin(λ*x^2), 0., s)
     return [value_cos, value_sin]
 end
 
@@ -31,7 +31,7 @@ function point(C::Clothoid, l::Float64)
     x, y = clothoid_in_standardorientation(C.λ, l_)
     x -= C.shift
     x_r, y_r = rotate2d(C.rotation, x, y)
-    return x_r+C.origin[1], y_r+C.origin[2]
+    return Point(x_r+C.origin[1], y_r+C.origin[2])
 end
 
 function angle(C::Clothoid, l::Float64)

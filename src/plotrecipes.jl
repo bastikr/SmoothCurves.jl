@@ -25,5 +25,6 @@ end
     aspect_ratio --> :equal
     label --> ""
 
-    curves.point(curve, [0:spacing:length(curve);])
+    points = curves.point.(curve, [0:spacing:length(curve);])
+    curves.x.(points), curves.y.(points)
 end
