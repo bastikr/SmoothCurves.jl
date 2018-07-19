@@ -60,3 +60,30 @@ function construct_clothoids(λ, p0, v0, v1)
     C1 = Clothoid(-lmax, 0, -sign(dphi)*λ, -shift, -phi1, p0)
     return C0, C1
 end
+
+
+function construct_clothoids2(dmax, p0, p1, p2)
+    v0_ = SVector{2}(normalize(p1-p0))
+    v1_ = SVector{2}(normalize(p2-p1))
+
+    dphi = deviation(v0_, v1_)
+    phi0 = deviation(v0_, [1, 0])
+    phi1 = deviation(v1_, [1, 0])
+
+    θ = abs(dphi/2)
+    Fsin(s) = QuadGK.quadgk(x->sin(x^2), 0., s)[1]
+    g = cos(θ)*sqrt(θ)/Fsin(sqrt(θ))
+    d = sin(2*θ)^(3./2)
+
+    smax = dmax*d*g
+    λ = θ/smax^2
+
+    xmax, ymax = clothoid_in_standardorientation(λ, smax)
+
+    shift = xmax + ymax*tan(abs(dphi)/2)
+    C0 = Clothoid(0, smax, sign(dphi)*λ, shift, -phi0, p1)
+
+    shift = xmax + ymax*tan(abs(dphi)/2)
+    C1 = Clothoid(-smax, 0, -sign(dphi)*λ, -shift, -phi1, p1)
+    return C0, C1
+end
