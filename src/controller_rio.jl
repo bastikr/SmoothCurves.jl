@@ -1,6 +1,6 @@
 module Rio
 
-export State, ControllerParameters, control
+export ControllerParameters, control
 
 import ...curves: pose
 
@@ -9,14 +9,6 @@ using ..Pose
 using ...Control
 
 using Optim
-
-
-struct State
-    pose::Pose
-    s::Float64
-end
-
-pose(state::State) = state.pose
 
 
 mutable struct ControllerParameters
@@ -34,8 +26,10 @@ import Base.-
 
 function dr_dt(K_ϕ::Float64, q::Pose, r::Float64, C::Curve)
     e = q - pose(C, r)
-    v_des = 1.
-    ω_des = 1.
+    κ = curvature(C, r)
+    K_mov = 1.
+    v_des = sqrt(K_mov^2/(1 + b_ϕ^2*κ^2))
+    ω_des = κ*v_des
     ω_des′ = 1
     v_des′ = 1
     num = q.v*v_des*cos(e.ϕ) + K_ϕ^2*q.ω*ω_des
@@ -73,10 +67,10 @@ function minimize_distance(K_ϕ, p0::Pose, C::Curve, lmin, lmax)
     return result.minimizer[1]
 end
 
-function control(params::ControllerParameters, dt::Float64, t::Float64, u::Control, state::State, C::Curve)
-    s = minimize_distance(params.K_ϕ, state.pose, C, max(params.s-0.3, 0), params.s+0.3)
+function control(params::ControllerParameters, dt::Float64, t::Float64, u::Control, p::Pose, C::Curve)
+    s = minimize_distance(params.K_ϕ, p, C, max(params.s-0.3, 0), params.s+0.3)
     params.s = s
-    e = pose(state) - pose(C, s)
+    e = p - pose(C, s)
 
     cv = e.x*cos(e.phi) + e.y*sin(e.phi)
     cw = params.K_ϕ*e.phi
@@ -97,8 +91,8 @@ function control(params::ControllerParameters, dt::Float64, t::Float64, u::Contr
         lu = sqrt(params.K_mov^2 - d^2)
         v0, w_scaled0 = n0_line*d + lu*u0_line
         v1, w_scaled1 = n0_line*d - lu*u0_line
-        pose_simulated0 = eulerstep(0.01, pose(state), Control(v0, w_scaled0/params.K_ϕ))
-        pose_simulated1 = eulerstep(0.01, pose(state), Control(v1, w_scaled1/params.K_ϕ))
+        pose_simulated0 = eulerstep(0.01, p, Control(v0, w_scaled0/params.K_ϕ))
+        pose_simulated1 = eulerstep(0.01, p, Control(v1, w_scaled1/params.K_ϕ))
         l0 = minimize_distance(params.K_ϕ, pose_simulated0, C, max(s-0.3, 0), s+0.3)
         l1 = minimize_distance(params.K_ϕ, pose_simulated1, C, max(s-0.3, 0), s+0.3)
         if l0>l1
