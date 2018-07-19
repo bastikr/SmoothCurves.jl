@@ -15,6 +15,11 @@ end
 
 length(C::Clothoid) = C.l1 - C.l0
 
+l(C::Clothoid, s::Float64) = C.l0 + s
+dl(C::Clothoid, s::Float64) = 1.
+θ(C::Clothoid, s::Float64) = C.rotation + C.λ*s^2
+curvature(C::Clothoid, s::Float64) = 2*C.λ*s
+dcurvature(C::Clothoid, s::Float64) = 2*C.λ
 
 function smax_from_deviation(λ, dphi)
     sqrt(abs(dphi/(2*λ)))
@@ -41,7 +46,6 @@ function angle(C::Clothoid, l::Float64)
     dx_r, dy_r = rotate2d(C.rotation, dx, dy)
     atan2(dy_r, dx_r)
 end
-
 
 function construct_clothoids(λ, p0, v0, v1)
     v0_ = SVector{2}(normalize(v0))

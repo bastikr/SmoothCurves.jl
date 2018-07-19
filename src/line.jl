@@ -16,6 +16,12 @@ end
 
 Base.length(x::Line) = x.l1
 
+l(C::Line, s::Float64) = s
+dl(C::Line, s::Float64) = 1.
+θ(C::Line, s::Float64) = atan2(C.direction[2], C.direction[1])
+curvature(C::Line, s::Float64) = 0.
+dcurvature(C::Line, s::Float64) = 0.
+
 function point(C::Line, l::Float64)
     if l < 0 || l > C.l1
         throw(DomainError("l has to be between 0 and l1"))
