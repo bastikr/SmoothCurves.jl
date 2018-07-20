@@ -1,16 +1,11 @@
 import Base.length
-import Base.angle
+
 
 using StaticArrays
 
 abstract type Curve end
 
 Point = StaticArrays.SVector
-
-# struct Point
-#     x::Float64
-#     y::Float64
-# end
 
 
 struct Pose
@@ -21,7 +16,7 @@ end
 
 function pose(C::Curve, l::Float64)
     x, y = point(C, l)
-    phi = angle(C, l)
+    phi = θ(C, l)
     return Pose(x, y, phi)
 end
 

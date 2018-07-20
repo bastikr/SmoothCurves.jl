@@ -26,7 +26,3 @@ dpoint(C::Line, s::Real) = C.direction
 function point(C::Line, l::Real)
     Point((C.origin + l*C.direction)...)
 end
-
-function angle(C::Line, l::Real)
-    return atan2(C.direction[2], C.direction[1])
-end

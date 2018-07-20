@@ -25,13 +25,13 @@ function dispatch(f, C::PolyCurve, s::Float64)
     f(C.curves[i], s_i)
 end
 
+point(C::PolyCurve, s::Float64) = dispatch(point, C, s)
 l(C::PolyCurve, s::Float64) = dispatch(l, C, s)
 dl(C::PolyCurve, s::Float64) = dispatch(dl, C, s)
+θ(C::PolyCurve, s::Float64) = dispatch(θ, C, s)
 dθ(C::PolyCurve, s::Float64) = dispatch(dθ, C, s)
 curvature(C::PolyCurve, s::Float64) = dispatch(curvature, C, s)
 dcurvature(C::PolyCurve, s::Float64) = dispatch(dcurvature, C, s)
-angle(C::PolyCurve, s::Float64) = dispatch(angle, C, s)
-point(C::PolyCurve, s::Float64) = dispatch(point, C, s)
 
 
 function construct_curve(λ, p0, p1, p2)
