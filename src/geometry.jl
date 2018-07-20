@@ -1,9 +1,9 @@
 normalvector(v) = [-v[2], v[1]]
 
-function rotate2d(phi, x, y)
+function rotate2d(phi::Float64, x::Float64, y::Float64)
     c = cos(phi)
     s = sin(phi)
-    return c*x - s*y, s*x + c*y
+    return SVector(c*x - s*y, s*x + c*y)
 end
 
 function normalize_angle(x)

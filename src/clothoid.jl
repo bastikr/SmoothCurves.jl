@@ -10,7 +10,7 @@ struct Clothoid <: Curve
     λ::Float64
     shift::Float64
     rotation::Float64
-    origin::SVector{2}
+    origin::SVector{2, Float64}
 end
 
 length(C::Clothoid) = C.l1 - C.l0
@@ -31,11 +31,27 @@ function clothoid_in_standardorientation(λ::Real, s::Real)
     return [value_cos, value_sin]
 end
 
+function Fcos(λ::Float64, s::Float64)
+    return QuadGK.quadgk(x->cos(λ*x^2), 0., s)[1]::Float64
+end
+
+function Fsin(λ::Float64, s::Float64)
+    return QuadGK.quadgk(x->sin(λ*x^2), 0., s)[1]::Float64
+end
+
+function Fresnel(λ::Real, s::Real)
+    function f(x::Float64)
+        t = λ*x^2
+        SVector(cos(t), sin(t))
+    end
+    return QuadGK.quadgk(f, 0., s)[1]::SVector{2, Float64}
+end
+
 function point(C::Clothoid, s::Real)
-    x, y = clothoid_in_standardorientation(C.λ, l(C, s))
-    x -= C.shift
-    x_r, y_r = rotate2d(C.rotation, x, y)
-    return Point(x_r+C.origin[1], y_r+C.origin[2])
+    p = Fresnel(C.λ, l(C, s))::SVector{2, Float64}
+    p_r = rotate2d(C.rotation, p[1] - C.shift, p[2])
+    return p_r + C.origin
+    return SVector(p_r[1]+C.origin[1], p_r[2]+C.origin[2])
 end
 
 function dpoint(C::Clothoid, s::Real)
@@ -44,14 +60,6 @@ function dpoint(C::Clothoid, s::Real)
     dy = sin(C.λ*l_^2)
     dx_r, dy_r = rotate2d(C.rotation, dx, dy)
     return [dx_r, dy_r]
-end
-
-function angle(C::Clothoid, s::Real)
-    l_ = l(C, s)
-    dx = cos(C.λ*l_^2)
-    dy = sin(C.λ*l_^2)
-    dx_r, dy_r = rotate2d(C.rotation, dx, dy)
-    atan2(dy_r, dx_r)
 end
 
 function construct_clothoids(λ::Real, p0, v0, v1)
