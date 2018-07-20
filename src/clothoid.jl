@@ -17,8 +17,8 @@ length(C::Clothoid) = C.l1 - C.l0
 
 l(C::Clothoid, s::Real) = C.l0 + s
 dl(C::Clothoid, s::Real) = 1.
-θ(C::Clothoid, s::Real) = C.rotation + C.λ*s^2
-curvature(C::Clothoid, s::Real) = 2*C.λ*s
+θ(C::Clothoid, s::Real) = normalize_angle(C.rotation + C.λ*l(C, s)^2)
+curvature(C::Clothoid, s::Real) = 2*C.λ*(C.l0 + s)
 dcurvature(C::Clothoid, s::Real) = 2*C.λ
 
 function smax_from_deviation(λ, dphi)
