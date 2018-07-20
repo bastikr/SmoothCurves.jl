@@ -15,23 +15,23 @@ end
 
 length(C::Clothoid) = C.l1 - C.l0
 
-l(C::Clothoid, s::Float64) = C.l0 + s
-dl(C::Clothoid, s::Float64) = 1.
-θ(C::Clothoid, s::Float64) = C.rotation + C.λ*s^2
-curvature(C::Clothoid, s::Float64) = 2*C.λ*s
-dcurvature(C::Clothoid, s::Float64) = 2*C.λ
+l(C::Clothoid, s::Real) = C.l0 + s
+dl(C::Clothoid, s::Real) = 1.
+θ(C::Clothoid, s::Real) = C.rotation + C.λ*s^2
+curvature(C::Clothoid, s::Real) = 2*C.λ*s
+dcurvature(C::Clothoid, s::Real) = 2*C.λ
 
 function smax_from_deviation(λ, dphi)
     sqrt(abs(dphi/(2*λ)))
 end
 
-function clothoid_in_standardorientation(λ::Float64, s::Float64)
-    value_cos, err = QuadGK.quadgk(x::Float64->cos(λ*x^2), 0., s)
-    value_sin, err = QuadGK.quadgk(x::Float64->sin(λ*x^2), 0., s)
+function clothoid_in_standardorientation(λ::Real, s::Real)
+    value_cos, err = QuadGK.quadgk(x->cos(λ*x^2), 0., s)
+    value_sin, err = QuadGK.quadgk(x->sin(λ*x^2), 0., s)
     return [value_cos, value_sin]
 end
 
-function point(C::Clothoid, l::Float64)
+function point(C::Clothoid, l::Real)
     l_ = C.l0 + l
     x, y = clothoid_in_standardorientation(C.λ, l_)
     x -= C.shift
@@ -39,7 +39,15 @@ function point(C::Clothoid, l::Float64)
     return Point(x_r+C.origin[1], y_r+C.origin[2])
 end
 
-function angle(C::Clothoid, l::Float64)
+function dpoint(C::Clothoid, l::Real)
+    l_ = C.l0 + l
+    dx = cos(C.λ*l_^2)
+    dy = sin(C.λ*l_^2)
+    dx_r, dy_r = rotate2d(C.rotation, dx, dy)
+    return [dx_r, dy_r]
+end
+
+function angle(C::Clothoid, l::Real)
     l_ = C.l0 + l
     dx = cos(C.λ*l_^2)
     dy = sin(C.λ*l_^2)
@@ -47,7 +55,7 @@ function angle(C::Clothoid, l::Float64)
     atan2(dy_r, dx_r)
 end
 
-function construct_clothoids(λ, p0, v0, v1)
+function construct_clothoids(λ::Real, p0, v0, v1)
     v0_ = SVector{2}(normalize(v0))
     v1_ = SVector{2}(normalize(v1))
     λ = abs(λ)
@@ -66,7 +74,7 @@ function construct_clothoids(λ, p0, v0, v1)
 end
 
 
-function construct_clothoids2(dmax, p0, p1, p2)
+function construct_clothoids2(dmax::Real, p0, p1, p2)
     v0_ = SVector{2}(normalize(p1-p0))
     v1_ = SVector{2}(normalize(p2-p1))
 
