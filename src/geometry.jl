@@ -6,6 +6,10 @@ function rotate2d(phi, x, y)
     return c*x - s*y, s*x + c*y
 end
 
+function normalize_angle(x)
+    (x % (2π) + 3*π) % (2π) - π
+end
+
 function deviation(v0, v1)
     u0 = normalize(v0)
     u1 = normalize(v1)
