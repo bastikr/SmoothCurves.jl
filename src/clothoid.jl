@@ -18,7 +18,7 @@ length(C::Clothoid) = C.l1 - C.l0
 l(C::Clothoid, s::Real) = C.l0 + s
 dl(C::Clothoid, s::Real) = 1.
 θ(C::Clothoid, s::Real) = normalize_angle(C.rotation + C.λ*l(C, s)^2)
-curvature(C::Clothoid, s::Real) = 2*C.λ*(C.l0 + s)
+curvature(C::Clothoid, s::Real) = 2*C.λ*l(C, s)
 dcurvature(C::Clothoid, s::Real) = 2*C.λ
 
 function smax_from_deviation(λ, dphi)
@@ -31,24 +31,23 @@ function clothoid_in_standardorientation(λ::Real, s::Real)
     return [value_cos, value_sin]
 end
 
-function point(C::Clothoid, l::Real)
-    l_ = C.l0 + l
-    x, y = clothoid_in_standardorientation(C.λ, l_)
+function point(C::Clothoid, s::Real)
+    x, y = clothoid_in_standardorientation(C.λ, l(C, s))
     x -= C.shift
     x_r, y_r = rotate2d(C.rotation, x, y)
     return Point(x_r+C.origin[1], y_r+C.origin[2])
 end
 
-function dpoint(C::Clothoid, l::Real)
-    l_ = C.l0 + l
+function dpoint(C::Clothoid, s::Real)
+    l_ = l(C, s)
     dx = cos(C.λ*l_^2)
     dy = sin(C.λ*l_^2)
     dx_r, dy_r = rotate2d(C.rotation, dx, dy)
     return [dx_r, dy_r]
 end
 
-function angle(C::Clothoid, l::Real)
-    l_ = C.l0 + l
+function angle(C::Clothoid, s::Real)
+    l_ = l(C, s)
     dx = cos(C.λ*l_^2)
     dy = sin(C.λ*l_^2)
     dx_r, dy_r = rotate2d(C.rotation, dx, dy)
