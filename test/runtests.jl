@@ -1,5 +1,6 @@
 
 names = [
+    "test_line.jl",
     "test_clothoid.jl"
 ]
 
