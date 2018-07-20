@@ -2,8 +2,8 @@ module SmoothCurves
 
 
 module curves
-    include("geometry.jl")
     include("curve.jl")
+    include("geometry.jl")
     include("polycurve.jl")
     include("line.jl")
     include("clothoid.jl")

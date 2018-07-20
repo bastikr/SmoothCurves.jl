@@ -4,6 +4,7 @@ export ControllerParameters, control
 
 import ...curves: pose
 
+using ...curves
 using ...curves: Curve
 using ..Pose
 using ...Control
@@ -24,27 +25,25 @@ ControllerParameters(; τ_xy=nothing, τ_ϕ=nothing, K_ϕ=nothing, K_mov=nothing
 
 import Base.-
 
-function dr_dt(K_ϕ::Float64, q::Pose, r::Float64, C::Curve)
-    e = q - pose(C, r)
-    κ = curvature(C, r)
-    K_mov = 1.
-    v_des = sqrt(K_mov^2/(1 + b_ϕ^2*κ^2))
-    ω_des = κ*v_des
-    ω_des′ = 1
-    v_des′ = 1
-    num = q.v*v_des*cos(e.ϕ) + K_ϕ^2*q.ω*ω_des
-    denum = v_des^2 - ω_des*v_des*e.y + K_ϕ^2*ω_des^2 - K_ϕ^2*e.ϕ*ω_des′ - e.x*v_des′
-    return num/denum
-end
+# function dr_dt(K_ϕ::Float64, q::Pose, u::Control, r::Float64, C::Curve)
+#     K_mov = 1.
+#     b_ϕ = K_ϕ
 
-function (-)(state_real::Pose, pose_desired::Pose)
-    dx = state_real.x - pose_desired.x
-    dy = state_real.y - pose_desired.y
-    phi = pose_desired.phi
-    dphi_unwrapped = state_real.phi - pose_desired.phi
-    dphi = atan2(sin(dphi_unwrapped), cos(dphi_unwrapped))
-    return Pose(dx*cos(phi) + dy*sin(phi), -dx*sin(phi) + dy*cos(phi), dphi)
-end
+#     e = q - pose(C, r)
+#     κ = curves.curvature(C, r)
+#     dκ = curves.dcurvature(C, r)
+
+#     # Determine desired v and w
+#     v_des = K_mov * sqrt(1/(1 + b_ϕ^2*κ^2))
+#     w_des = κ*v_des
+#     v_des′ = K_mov*(1+b_ϕ^2*κ^2)^(-3/2) * b_ϕ^2 * κ * dκ
+#     w_des′ = dκ*v_des + κ*v_des′
+
+#     num = u.v*v_des*cos(e.phi) + K_ϕ^2*u.w*w_des
+#     denum = v_des^2 - w_des*v_des*e.y + K_ϕ^2*w_des^2 - K_ϕ^2*e.phi*w_des′ - e.x*v_des′
+#     return num/denum
+# end
+
 
 function eulerstep(dt::Float64, pose::Pose, u::Control)
     x = pose.x
@@ -57,20 +56,33 @@ function eulerstep(dt::Float64, pose::Pose, u::Control)
     return Pose(x, y, phi)
 end
 
-function distance(K_ϕ::Float64, p0::Pose, p1::Pose)
-    e = p0 - p1
+function distance(K_ϕ::Float64, p0::Pose, p::Pose)
+    e = curves.frenet_coordinates(p0, p)
     e.x^2 + e.y^2 + (K_ϕ * e.phi)^2
 end
 
 function minimize_distance(K_ϕ, p0::Pose, C::Curve, lmin, lmax)
-    result = optimize(l->distance(K_ϕ, p0, pose(C, l)), lmin, lmax)
+    result = optimize(l->distance(K_ϕ, pose(C, l), p0), lmin, lmax)
     return result.minimizer[1]
 end
 
 function control(params::ControllerParameters, dt::Float64, t::Float64, u::Control, p::Pose, C::Curve)
     s = minimize_distance(params.K_ϕ, p, C, max(params.s-0.3, 0), params.s+0.3)
+    # ds = dt*dr_dt(params.K_ϕ, p, u, params.s, C)
+    # s = s + ds
     params.s = s
-    e = p - pose(C, s)
+    e = curves.frenet_coordinates(C, s, p)
+    # e = p - pose(C, s)
+
+    # κ = curves.curvature(C, s)
+    # b_ϕ = params.K_ϕ
+    # v_des = params.K_mov * sqrt(1/(1 + b_ϕ^2*κ^2))
+    # w_des = κ*v_des
+
+    # p0_des = [v_des, params.K_ϕ*w_des]
+
+    K_mov = 0.9*sin(t)^2 +0.1
+    K_mov = params.K_mov
 
     cv = e.x*cos(e.phi) + e.y*sin(e.phi)
     cw = params.K_ϕ*e.phi
@@ -80,15 +92,15 @@ function control(params::ControllerParameters, dt::Float64, t::Float64, u::Contr
     d = dot(n0_line, p0_line)
     # d_ = (-cv^2/τ_xy - cw^2/τ_ϕ)/sqrt(cv^2 + cw^2)
 
-    if (d^2>params.K_mov^2)
+    if (d^2>K_mov^2)
         println("max")
         if dot(n0_line, p0_line)>0
-            v, w_scaled = params.K_mov * n0_line
+            v, w_scaled = K_mov * n0_line
         else
-            v, w_scaled = -params.K_mov * n0_line
+            v, w_scaled = -K_mov * n0_line
         end
     else
-        lu = sqrt(params.K_mov^2 - d^2)
+        lu = sqrt(K_mov^2 - d^2)
         v0, w_scaled0 = n0_line*d + lu*u0_line
         v1, w_scaled1 = n0_line*d - lu*u0_line
         pose_simulated0 = eulerstep(0.01, p, Control(v0, w_scaled0/params.K_ϕ))
