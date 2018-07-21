@@ -25,12 +25,6 @@ function smax_from_deviation(λ, dphi)
     sqrt(abs(dphi/(2*λ)))
 end
 
-function clothoid_in_standardorientation(λ::Real, s::Real)
-    value_cos, err = QuadGK.quadgk(x->cos(λ*x^2), 0., s)
-    value_sin, err = QuadGK.quadgk(x->sin(λ*x^2), 0., s)
-    return [value_cos, value_sin]
-end
-
 function Fcos(λ::Float64, s::Float64)
     return QuadGK.quadgk(x->cos(λ*x^2), 0., s)[1]::Float64
 end
@@ -70,7 +64,7 @@ function construct_clothoids(λ::Real, p0, v0, v1)
     phi0 = deviation(v0_, [1, 0])
     phi1 = deviation(v1_, [1, 0])
     lmax = smax_from_deviation(λ, abs(dphi))
-    xmax, ymax = clothoid_in_standardorientation(λ, lmax)
+    xmax, ymax = Fresnel(λ, lmax)
 
     shift = xmax + ymax*tan(abs(dphi)/2)
     C0 = Clothoid(0, lmax, sign(dphi)*λ, shift, -phi0, p0)
@@ -90,14 +84,13 @@ function construct_clothoids2(dmax::Real, p0, p1, p2)
     phi1 = deviation(v1_, [1, 0])
 
     θ = abs(dphi/2)
-    Fsin(s) = QuadGK.quadgk(x->sin(x^2), 0., s)[1]
-    g = cos(θ)*sqrt(θ)/Fsin(sqrt(θ))
+    g = cos(θ)*sqrt(θ)/Fsin(1., sqrt(θ))
     d = sin(2*θ)^(3./2)
 
     smax = dmax*d*g
     λ = θ/smax^2
 
-    xmax, ymax = clothoid_in_standardorientation(λ, smax)
+    xmax, ymax = Fresnel(λ, smax)
 
     shift = xmax + ymax*tan(abs(dphi)/2)
     C0 = Clothoid(0, smax, sign(dphi)*λ, shift, -phi0, p1)
