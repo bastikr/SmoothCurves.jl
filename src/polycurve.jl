@@ -3,30 +3,47 @@ import Base: length
 
 struct PolyCurve <: Curve
     curves::Vector
-    cumlengths::Vector{Float64}
+    cum_s::Vector{Float64}
 
     function PolyCurve(curves...)
-        cumlengths = cumsum(collect(length.(curves)))
-        new(collect(curves), cumlengths)
+        cum_s = cumsum(collect(smax.(curves)))
+        new(collect(curves), cum_s)
     end
 end
 
-Base.length(C::PolyCurve) = C.cumlengths[end]
+Base.length(C::PolyCurve) = C.cum_s[end]
 
-function dispatch(f, C::PolyCurve, s::Float64)
-    if s < 0 || s > C.cumlengths[end]
+function curveindex(C::PolyCurve, s::Float64)
+    if s < 0 || s > C.cum_s[end]
         throw(DomainError("Out of Bounds"))
     end
-    i = findfirst(x->(x-s>0), C.cumlengths)
+    findfirst(x->(x-s>=0), C.cum_s)
+end
+
+function dispatch(f, C::PolyCurve, s::Float64)
+    i = curveindex(C, s)
     s_i = s
     if (i>1)
-        s_i -= C.cumlengths[i-1]
+        s_i -= C.cum_s[i-1]
     end
     f(C.curves[i], s_i)
 end
 
+function l(C::PolyCurve, s::Float64)
+    i = curveindex(C, s)
+    s_i = s
+    if (i>1)
+        s_i -= C.cum_s[i-1]
+    end
+    l_ = 0.
+    for j=1:i-1
+        l += length(C.curve[j])
+    end
+    l_ + l(C.curves[i], s_i)
+end
+
+smax(C::PolyCurve) = C.cum_s[end]
 point(C::PolyCurve, s::Float64) = dispatch(point, C, s)
-l(C::PolyCurve, s::Float64) = dispatch(l, C, s)
 dl(C::PolyCurve, s::Float64) = dispatch(dl, C, s)
 θ(C::PolyCurve, s::Float64) = dispatch(θ, C, s)
 dθ(C::PolyCurve, s::Float64) = dispatch(dθ, C, s)

@@ -13,7 +13,9 @@ end
 
 sign(C::Arc) = sign(C.phi1 - C.phi0)
 ϕ(C::Arc, Δϕ::Real) = C.phi0 + sign(C)*Δϕ
+
 Base.length(C::Arc) = C.r*abs(C.phi1 - C.phi0)
+smax(C::Arc) = abs(C.phi1 - C.phi0)
 θ(C::Arc, Δϕ::Real) = normalize_angle(ϕ(C, Δϕ) + sign(C)*π/2)
 l(C::Arc, Δϕ::Real) = C.r*Δϕ
 

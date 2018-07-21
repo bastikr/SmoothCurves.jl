@@ -81,7 +81,6 @@ function control(params::ControllerParameters, dt::Float64, t::Float64, u::Contr
 
     # p0_des = [v_des, params.K_ϕ*w_des]
 
-    K_mov = 0.9*sin(t)^2 +0.1
     K_mov = params.K_mov
 
     cv = e.x*cos(e.phi) + e.y*sin(e.phi)
@@ -91,6 +90,10 @@ function control(params::ControllerParameters, dt::Float64, t::Float64, u::Contr
     p0_line = [-cv/params.τ_xy, -cw/params.τ_ϕ]
     d = dot(n0_line, p0_line)
     # d_ = (-cv^2/τ_xy - cw^2/τ_ϕ)/sqrt(cv^2 + cw^2)
+
+    # v = 0.1 + abs(p.x/10)
+    # w_scaled = -1./cw*(cv*v + cv^2/params.τ_xy + cw^2/params.τ_ϕ)
+    # return Control(v, w_scaled/params.K_ϕ)
 
     if (d^2>K_mov^2)
         println("max")

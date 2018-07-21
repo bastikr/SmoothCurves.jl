@@ -18,6 +18,7 @@ Base.length(x::Line) = x.l1
 
 l(C::Line, s::Real) = s
 dl(C::Line, s::Real) = 1.
+smax(C::Line) = C.l1
 θ(C::Line, s::Real) = atan2(C.direction[2], C.direction[1])
 curvature(C::Line, s::Real) = 0.
 dcurvature(C::Line, s::Real) = 0.

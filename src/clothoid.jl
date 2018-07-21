@@ -15,6 +15,7 @@ end
 
 length(C::Clothoid) = C.l1 - C.l0
 
+smax(C::Clothoid) = C.l1 - C.l0
 l(C::Clothoid, s::Real) = C.l0 + s
 dl(C::Clothoid, s::Real) = 1.
 θ(C::Clothoid, s::Real) = normalize_angle(C.rotation + C.λ*l(C, s)^2)
