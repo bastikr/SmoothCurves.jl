@@ -15,8 +15,8 @@ function test_curvefunctions(C::SmoothCurves.curves.Curve)
     curvature(s) = SmoothCurves.curves.curvature(C, s)
     dcurvature(s) = SmoothCurves.curves.dcurvature(C, s)
 
-    Δs = length(C)/10
-    for s=0:Δs:length(C)
+    Δs = curves.smax(C)/10
+    for s=0:Δs:curves.smax(C)
         # Test dp/ds
         @test dpoint(s) ≈ d_ds(point, s) atol=1e-12
 
