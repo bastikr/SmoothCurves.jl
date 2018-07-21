@@ -8,10 +8,13 @@ include("curvefunctions_testsuite.jl")
 r = 5
 pc = [1.7, -6.3]
 
-δmin = 0.3
-Δ = π/10
+δmin = π/8
+Δ = π/8
 
 for α=0:Δ:2π, δ=δmin:Δ:2π-δmin
+    if δ ≈ π
+        continue
+    end
     β = α + δ
     p0 = pc + r*[cos(α), sin(α)]
     p2 = pc + r*[cos(β), sin(β)]
