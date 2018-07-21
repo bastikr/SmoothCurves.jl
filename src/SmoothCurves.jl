@@ -1,5 +1,8 @@
 module SmoothCurves
 
+export curves, Line, Arc, Clothoid, PolyCurve, Pose, Control,
+       controllers
+
 
 module curves
     include("curve.jl")
@@ -10,7 +13,7 @@ module curves
     include("clothoid.jl")
 end
 
-using .curves: Pose
+using .curves: Line, Arc, Clothoid, PolyCurve, Pose
 
 
 include("control.jl")
@@ -21,6 +24,8 @@ module controllers
 
     include("controller_rio.jl")
 end
+
+using .controllers
 
 include("plotrecipes.jl")
 
