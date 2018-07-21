@@ -5,7 +5,7 @@ using FDM
 
 
 function test_curvefunctions(C::SmoothCurves.curves.Curve)
-    d_ds = central_fdm(5, 1)
+    d_ds = central_fdm(3, 1)
 
     point(s) = SmoothCurves.curves.point(C, s)
     dpoint(s) = SmoothCurves.curves.dpoint(C, s)
@@ -18,7 +18,7 @@ function test_curvefunctions(C::SmoothCurves.curves.Curve)
     Δs = length(C)/10
     for s=0:Δs:length(C)
         # Test dp/ds
-        @test dpoint(s) ≈ d_ds(point, s) atol=1e-6
+        @test dpoint(s) ≈ d_ds(point, s) atol=1e-15
 
         # Test l
         @test d_ds(l, s) ≈ norm(dpoint(s))
@@ -27,17 +27,17 @@ function test_curvefunctions(C::SmoothCurves.curves.Curve)
         @test dl(s) ≈ d_ds(l, s)
 
         # Test θ
-        @test cos(θ(s)) ≈ dpoint(s)[1] atol=1e-15
-        @test sin(θ(s)) ≈ dpoint(s)[2] atol=1e-15
+        @test cos(θ(s)) ≈ dpoint(s)[1]/dl(s) atol=1e-15
+        @test sin(θ(s)) ≈ dpoint(s)[2]/dl(s) atol=1e-15
 
         # Test curvature
         t = dpoint(s)/dl(s)
-        t′ = d_ds(dpoint, s)/dl(s)
+        t′ = d_ds(dpoint, s)/dl(s)^2
         u_n = [-t[2], t[1]]
         k = dot(u_n, t′)
-        @test curvature(s) ≈ k  atol=1e-4
+        @test curvature(s) ≈ k atol=1e-15
 
         # Test dcurvature
-        @test dcurvature(s) ≈ d_ds(curvature, s)
+        @test dcurvature(s) ≈ d_ds(curvature, s) atol=1e-15
     end
 end
