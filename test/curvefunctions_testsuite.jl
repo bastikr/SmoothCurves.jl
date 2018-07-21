@@ -4,16 +4,16 @@ using SmoothCurves
 using FDM
 
 
-function test_curvefunctions(C::SmoothCurves.curves.Curve)
+function test_curvefunctions(C::curves.Curve)
     d_ds = central_fdm(3, 1)
 
-    point(s) = SmoothCurves.curves.point(C, s)
-    dpoint(s) = SmoothCurves.curves.dpoint(C, s)
-    l(s) = SmoothCurves.curves.l(C, s)
-    dl(s) = SmoothCurves.curves.dl(C, s)
-    θ(s) = SmoothCurves.curves.θ(C, s)
-    curvature(s) = SmoothCurves.curves.curvature(C, s)
-    dcurvature(s) = SmoothCurves.curves.dcurvature(C, s)
+    point(s) = curves.point(C, s)
+    dpoint(s) = curves.dpoint(C, s)
+    l(s) = curves.l(C, s)
+    dl(s) = curves.dl(C, s)
+    θ(s) = curves.θ(C, s)
+    curvature(s) = curves.curvature(C, s)
+    dcurvature(s) = curves.dcurvature(C, s)
 
     Δs = curves.smax(C)/10
     for s=0:Δs:curves.smax(C)

@@ -12,7 +12,7 @@ for ϕ0=0:0.1:2π, ϕ1=0:0.1:2π
     if ϕ0==ϕ1
         continue
     end
-    C = SmoothCurves.curves.Arc(origin, r, ϕ0, ϕ1)
+    C = Arc(origin, r, ϕ0, ϕ1)
 
     test_curvefunctions(C)
 end

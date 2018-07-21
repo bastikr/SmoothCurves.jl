@@ -1,29 +1,32 @@
 import Base.length
+
 using StaticArrays: SVector
 
 
 struct Line <: Curve
-    l1::Float64
-    origin::SVector{2}
-    direction::SVector{2}
-    function Line(l1::Float64, origin, direction)
-        if l1<0
-            throw(DomainError("l0 has to be positive"))
+    origin::SVector{2, Float64}
+    direction::SVector{2, Float64}
+    length::Float64
+
+    function Line(origin, direction, length::Number)
+        if length<0
+            throw(DomainError("length has to be positive"))
         end
-        new(l1, SVector{2}(origin), SVector{2}(normalize(direction)))
+        new(origin, normalize(direction), length)
     end
 end
 
-Base.length(x::Line) = x.l1
+# Implement Curve interface
+smax(C::Line) = C.length
 
 l(C::Line, s::Real) = s
+length(C::Line) = C.length
 dl(C::Line, s::Real) = 1.
-smax(C::Line) = C.l1
+
 θ(C::Line, s::Real) = atan2(C.direction[2], C.direction[1])
+
 curvature(C::Line, s::Real) = 0.
 dcurvature(C::Line, s::Real) = 0.
-dpoint(C::Line, s::Real) = C.direction
 
-function point(C::Line, l::Real)
-    Point((C.origin + l*C.direction)...)
-end
+point(C::Line, l::Real) = C.origin + l*C.direction
+dpoint(C::Line, s::Real) = C.direction
