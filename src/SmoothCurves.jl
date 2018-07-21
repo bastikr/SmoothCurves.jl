@@ -6,6 +6,7 @@ module curves
     include("geometry.jl")
     include("polycurve.jl")
     include("line.jl")
+    include("circle.jl")
     include("clothoid.jl")
 end
 

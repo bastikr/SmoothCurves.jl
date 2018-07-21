@@ -1,6 +1,7 @@
 
 names = [
     "test_line.jl",
+    "test_circle.jl",
     "test_clothoid.jl"
 ]
 
