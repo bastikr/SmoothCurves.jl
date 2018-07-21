@@ -9,7 +9,7 @@ module curves
     include("geometry.jl")
     include("polycurve.jl")
     include("line.jl")
-    include("circle.jl")
+    include("arc.jl")
     include("clothoid.jl")
 end
 
