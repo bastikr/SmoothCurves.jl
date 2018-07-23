@@ -21,9 +21,9 @@ l(C::Clothoid, s::Real) = s
 length(C::Clothoid) = l(C, smax(C))
 dl(C::Clothoid, s::Real) = 1.
 
-θ(C::Clothoid, s::Real) = normalize_angle(C.rotation + C.λ*l(C, s)^2)
+θ(C::Clothoid, s::Real) = normalize_angle(C.rotation + C.λ*(C.l0 + s)^2)
 
-curvature(C::Clothoid, s::Real) = 2*C.λ*l(C, s)
+curvature(C::Clothoid, s::Real) = 2*C.λ*(C.l0 + s)
 dcurvature(C::Clothoid, s::Real) = 2*C.λ
 
 function smax_from_deviation(λ, dphi)
@@ -47,13 +47,13 @@ function Fresnel(λ::Float64, s::Real)
 end
 
 function point(C::Clothoid, s::Real)
-    p = Fresnel(C.λ, l(C, s))::SVector{2, Float64}
+    p = Fresnel(C.λ, C.l0+s)::SVector{2, Float64}
     p_r = rotate2d(C.rotation, p[1] - C.shift, p[2])::SVector{2, Float64}
     return p_r + C.origin
 end
 
 function dpoint(C::Clothoid, s::Real)
-    l_ = l(C, s)
+    l_ = C.l0+s
     dx = cos(C.λ*l_^2)
     dy = sin(C.λ*l_^2)
     dx_r, dy_r = rotate2d(C.rotation, dx, dy)::SVector{2, Float64}
