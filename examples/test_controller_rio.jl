@@ -1,16 +1,28 @@
 using Revise
 using SmoothCurves
+using DifferentialEquations
+using StaticArrays: SVector
 
 # Path
 dmax = 0.5
-point0 = 2*[-4, -1]
+point0 = 2*[-4, -0.1]
 point1 = [0.0, 0.0]
-point2 = 2*[-4, 1]
+point2 = 2*[-4, 0.1]
 
-C = SmoothCurves.curves.construct_curve2(dmax, point0, point1, point2)
+C = curves.construct_curve2(dmax, point0, point1, point2)
+
+r = 0.01
+C_l0 = Line([-4., -r], [1., 0], 4.)
+C_l1 = Line([0., r], [-1., 0], 4.)
+C_arc = Arc([0, 0], r, -π/2, π/2+2π)
+C = PolyCurve(C_l0, C_arc, C_l1)
+using Plots
+
+plot(C)
 
 # Initial state
-p0 = SmoothCurves.Pose((point0 + [2, -0.5])..., 0.3)
+# p0 = Pose((point0 + [2, -0.5])..., 0.3)
+p0 = Pose(-3, -0.1, 0.2)
 s0 = SmoothCurves.controllers.Rio.minimize_distance(0.25, p0, C, 0, length(C.curves[1]))
 
 # Controller
@@ -27,18 +39,33 @@ u = SmoothCurves.Control(0, 0)
 control = SmoothCurves.controllers.Rio.control
 eulerstep = SmoothCurves.controllers.Rio.eulerstep
 
-dt = 0.005
-tend = 20
+dt = 0.01
+tend = 30
 
 tvec = Float64[0]
-poses = SmoothCurves.Pose[p0]
+poses = Pose[p0]
 controls = SmoothCurves.Control[u]
 svec = Float64[controller.s]
+
+
+function dstep(x::SVector{3, Float64}, u::SVector{2, Float64}, t::Float64)
+    return SVector{3, Float64}(u[1]*cos(x[3]), u[1]*sin(x[3]), u[2])
+end
+
+function step(dt::Float64, pose::Pose, u::Control)
+    x0 = SVector{3, Float64}(pose.x, pose.y, pose.phi)
+    u0 = SVector{2, Float64}(u.v, u.w)
+    tspan = (0., dt)
+    prob = ODEProblem(dstep, x0, tspan, u0)
+    sol = solve(prob, save_everystep=false)
+    return Pose(sol[2]...)
+end
 
 p = p0
 for t=0:dt:tend
     u = control(controller, dt, t, u, p, C)
-    p = eulerstep(dt, p, u)
+    # p = eulerstep(dt, p, u)
+    p = step(dt, p, u)
 
     push!(tvec, tvec[end]+dt)
     push!(poses, p)
@@ -47,25 +74,24 @@ for t=0:dt:tend
 end
 
 using Plots
-poses_ideal = SmoothCurves.curves.pose.(C, svec)
-poses_error = SmoothCurves.curves.frenet_coordinates.(poses_ideal, poses)
+poses_ideal = curves.pose.(C, svec)
+poses_error = curves.frenet_coordinates.(poses_ideal, poses)
 
-x = SmoothCurves.curves.x.(poses)
-y = SmoothCurves.curves.y.(poses)
-phi = SmoothCurves.curves.phi.(poses)
+x = curves.x.(poses)
+y = curves.y.(poses)
+phi = curves.phi.(poses)
 
-x_ideal = SmoothCurves.curves.x.(poses_ideal)
-y_ideal = SmoothCurves.curves.y.(poses_ideal)
-phi_ideal = SmoothCurves.curves.phi.(poses_ideal)
+x_ideal = curves.x.(poses_ideal)
+y_ideal = curves.y.(poses_ideal)
+phi_ideal = curves.phi.(poses_ideal)
 
-x_error = SmoothCurves.curves.x.(poses_error)
-y_error = SmoothCurves.curves.y.(poses_error)
-phi_error = controller.K_ϕ * SmoothCurves.curves.phi.(poses_error)
+x_error = curves.x.(poses_error)
+y_error = curves.y.(poses_error)
+phi_error = controller.K_ϕ * curves.phi.(poses_error)
 err = sqrt.(x_error.^2 + y_error.^2 + (phi_error).^2)
 
 v = [u.v for u in controls]
 w = [u.w for u in controls]
-
 
 plt_xy = plot(C; spacing=0.01, color=:black, xlabel="x", ylabel="y")
 plot!(plt_xy, x, y, label="")
