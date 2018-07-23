@@ -16,6 +16,7 @@ end
 using .curves: Line, Arc, Clothoid, PolyCurve, Pose
 
 
+include("dynamics.jl")
 include("control.jl")
 
 module controllers
