@@ -12,9 +12,9 @@ struct Arc <: Curve
 end
 
 
-# Special Arc relevant functions
+# Special Arc specific functions
 sign(C::Arc) = sign(C.angle1 - C.angle0)
-ϕ(C::Arc, Δϕ::Real) = C.angle0 + sign(C)*Δϕ
+arcangle(C::Arc, Δϕ::Real) = C.angle0 + sign(C)*Δϕ
 
 
 # Implement Curve interface
@@ -24,18 +24,18 @@ l(C::Arc, Δϕ::Real) = C.radius*Δϕ
 length(C::Arc) = l(C, smax(C))
 dl(C::Arc, Δϕ::Real) = C.radius
 
-θ(C::Arc, Δϕ::Real) = normalize_angle(ϕ(C, Δϕ) + sign(C)*π/2)
+θ(C::Arc, Δϕ::Real) = normalize_angle(arcangle(C, Δϕ) + sign(C)*π/2)
 
 curvature(C::Arc) = sign(C)/C.radius
 curvature(C::Arc, Δϕ::Real) = curvature(C)
 dcurvature(C::Arc, Δϕ::Real) = 0.
 
 function point(C::Arc, Δϕ::Real)
-    ϕ_ = ϕ(C, Δϕ)
+    ϕ_ = arcangle(C, Δϕ)
     C.origin + C.radius*SVector{2, Float64}(cos(ϕ_), sin(ϕ_))
 end
 
 function dpoint(C::Arc, Δϕ::Real)
-    ϕ_ = ϕ(C, Δϕ)
+    ϕ_ = arcangle(C, Δϕ)
     C.radius*sign(C)*SVector{2, Float64}(-sin(ϕ_), cos(ϕ_))
 end
