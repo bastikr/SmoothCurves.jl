@@ -26,7 +26,8 @@ dl(C::Arc, Δϕ::Real) = C.radius
 
 θ(C::Arc, Δϕ::Real) = normalize_angle(ϕ(C, Δϕ) + sign(C)*π/2)
 
-curvature(C::Arc, Δϕ::Real) = sign(C)/C.radius
+curvature(C::Arc) = sign(C)/C.radius
+curvature(C::Arc, Δϕ::Real) = curvature(C)
 dcurvature(C::Arc, Δϕ::Real) = 0.
 
 function point(C::Arc, Δϕ::Real)
