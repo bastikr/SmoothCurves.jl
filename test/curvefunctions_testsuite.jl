@@ -11,7 +11,7 @@ function test_curvefunctions(C::curves.Curve)
     dpoint(s) = curves.dpoint(C, s)
     length(s) = curves.length(C, s)
     dlength(s) = curves.dlength(C, s)
-    θ(s) = curves.θ(C, s)
+    tangentangle(s) = curves.tangentangle(C, s)
     curvature(s) = curves.curvature(C, s)
     dcurvature(s) = curves.dcurvature(C, s)
 
@@ -26,9 +26,9 @@ function test_curvefunctions(C::curves.Curve)
         # Test dl/ds
         @test dlength(s) ≈ d_ds(length, s)
 
-        # Test θ
-        @test cos(θ(s)) ≈ dpoint(s)[1]/dlength(s) atol=1e-12
-        @test sin(θ(s)) ≈ dpoint(s)[2]/dlength(s) atol=1e-12
+        # Test tangentangle
+        @test cos(tangentangle(s)) ≈ dpoint(s)[1]/dlength(s) atol=1e-12
+        @test sin(tangentangle(s)) ≈ dpoint(s)[2]/dlength(s) atol=1e-12
 
         # Test curvature
         t = dpoint(s)/dlength(s)

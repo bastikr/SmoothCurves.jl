@@ -45,8 +45,8 @@ end
 smax(C::PolyCurve) = C.cum_s[end]
 point(C::PolyCurve, s::Float64) = dispatch(point, C, s)
 dlength(C::PolyCurve, s::Float64) = dispatch(dl, C, s)
-θ(C::PolyCurve, s::Float64) = dispatch(θ, C, s)
-dθ(C::PolyCurve, s::Float64) = dispatch(dθ, C, s)
+tangentangle(C::PolyCurve, s::Float64) = dispatch(tangentangle, C, s)
+dtangentangle(C::PolyCurve, s::Float64) = dispatch(dtangentangle, C, s)
 curvature(C::PolyCurve, s::Float64) = dispatch(curvature, C, s)
 dcurvature(C::PolyCurve, s::Float64) = dispatch(dcurvature, C, s)
 

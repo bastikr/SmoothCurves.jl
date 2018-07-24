@@ -23,7 +23,7 @@ length(C::Line, s::Real) = s
 length(C::Line) = C.length
 dlength(C::Line, s::Real) = 1.
 
-θ(C::Line, s::Real) = atan2(C.direction[2], C.direction[1])
+tangentangle(C::Line, s::Real) = atan2(C.direction[2], C.direction[1])
 
 curvature(C::Line, s::Real) = 0.
 dcurvature(C::Line, s::Real) = 0.

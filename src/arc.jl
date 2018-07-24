@@ -25,7 +25,7 @@ length(C::Arc) = length(C, smax(C))
 
 dlength(C::Arc, Δϕ::Real) = C.radius
 
-θ(C::Arc, Δϕ::Real) = normalize_angle(arcangle(C, Δϕ) + sign(C)*π/2)
+tangentangle(C::Arc, Δϕ::Real) = normalize_angle(arcangle(C, Δϕ) + sign(C)*π/2)
 
 curvature(C::Arc) = sign(C)/C.radius
 curvature(C::Arc, Δϕ::Real) = curvature(C)

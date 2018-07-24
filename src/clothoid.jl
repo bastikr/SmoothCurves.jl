@@ -21,7 +21,7 @@ length(C::Clothoid, s::Real) = s
 length(C::Clothoid) = length(C, smax(C))
 dlength(C::Clothoid, s::Real) = 1.
 
-θ(C::Clothoid, s::Real) = normalize_angle(C.rotation + C.λ*(C.l0 + s)^2)
+tangentangle(C::Clothoid, s::Real) = normalize_angle(C.rotation + C.λ*(C.l0 + s)^2)
 
 curvature(C::Clothoid, s::Real) = 2*C.λ*(C.l0 + s)
 dcurvature(C::Clothoid, s::Real) = 2*C.λ

@@ -16,7 +16,7 @@ end
 
 function pose(C::Curve, l::Float64)
     x, y = point(C, l)
-    phi = θ(C, l)
+    phi = tangentangle(C, l)
     return Pose(x, y, phi)
 end
 
