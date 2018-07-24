@@ -15,7 +15,7 @@ Base.length(C::PolyCurve) = C.cum_s[end]
 
 function curveindex(C::PolyCurve, s::Float64)
     if s < 0 || s > C.cum_s[end]
-        throw(DomainError("Out of Bounds"))
+        throw(DomainError("s has to be between 0 and $(C.cum_s[end]) but is $s."))
     end
     findfirst(x->(x-s>=0), C.cum_s)
 end
