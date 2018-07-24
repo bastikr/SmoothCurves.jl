@@ -20,7 +20,6 @@ end
 smax(C::Line) = C.length
 
 length(C::Line, s::Real) = s
-length(C::Line) = C.length
 dlength(C::Line, s::Real) = 1.
 
 tangentangle(C::Line, s::Real) = atan2(C.direction[2], C.direction[1])
