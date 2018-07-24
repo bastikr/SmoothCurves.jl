@@ -5,9 +5,9 @@ using StaticArrays: SVector
 
 # Path
 dmax = 0.5
-point0 = 2*[-4, -0.1]
+point0 = 2*[-4, -1.]
 point1 = [0.0, 0.0]
-point2 = 2*[-4, 0.1]
+point2 = 2*[-4, 1.]
 
 C = curves.construct_curve2(dmax, point0, point1, point2)
 
@@ -15,14 +15,14 @@ r = 0.01
 C_l0 = Line([-4., -r], [1., 0], 4.)
 C_l1 = Line([0., r], [-1., 0], 4.)
 C_arc = Arc([0, 0], r, -π/2, π/2+2π)
-C = PolyCurve(C_l0, C_arc, C_l1)
+C = curves.PolyCurve(C_l0, C_arc, C_l1)
 using Plots
 
 plot(C)
 
 # Initial state
 # p0 = Pose((point0 + [2, -0.5])..., 0.3)
-p0 = Pose(-3, -0.1, 0.2)
+p0 = Pose(-3, -0.3, 0.2)
 s0 = SmoothCurves.controllers.Rio.minimize_distance(0.25, p0, C, 0, length(C.curves[1]))
 
 # Controller
@@ -37,7 +37,7 @@ controller = SmoothCurves.controllers.Rio.ControllerParameters(
 u = SmoothCurves.Control(0, 0)
 
 control = SmoothCurves.controllers.Rio.control
-eulerstep = SmoothCurves.controllers.Rio.eulerstep
+# eulerstep = SmoothCurves.controllers.Rio.eulerstep
 
 dt = 0.01
 tend = 30
