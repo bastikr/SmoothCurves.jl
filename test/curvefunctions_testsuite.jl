@@ -9,8 +9,8 @@ function test_curvefunctions(C::curves.Curve)
 
     point(s) = curves.point(C, s)
     dpoint(s) = curves.dpoint(C, s)
-    l(s) = curves.l(C, s)
-    dl(s) = curves.dl(C, s)
+    length(s) = curves.length(C, s)
+    dlength(s) = curves.dlength(C, s)
     θ(s) = curves.θ(C, s)
     curvature(s) = curves.curvature(C, s)
     dcurvature(s) = curves.dcurvature(C, s)
@@ -21,18 +21,18 @@ function test_curvefunctions(C::curves.Curve)
         @test dpoint(s) ≈ d_ds(point, s) atol=1e-12
 
         # Test l
-        @test d_ds(l, s) ≈ norm(dpoint(s))
+        @test d_ds(length, s) ≈ norm(dpoint(s))
 
         # Test dl/ds
-        @test dl(s) ≈ d_ds(l, s)
+        @test dlength(s) ≈ d_ds(length, s)
 
         # Test θ
-        @test cos(θ(s)) ≈ dpoint(s)[1]/dl(s) atol=1e-12
-        @test sin(θ(s)) ≈ dpoint(s)[2]/dl(s) atol=1e-12
+        @test cos(θ(s)) ≈ dpoint(s)[1]/dlength(s) atol=1e-12
+        @test sin(θ(s)) ≈ dpoint(s)[2]/dlength(s) atol=1e-12
 
         # Test curvature
-        t = dpoint(s)/dl(s)
-        t′ = d_ds(dpoint, s)/dl(s)^2
+        t = dpoint(s)/dlength(s)
+        t′ = d_ds(dpoint, s)/dlength(s)^2
         u_n = [-t[2], t[1]]
         k = dot(u_n, t′)
         @test curvature(s) ≈ k atol=1e-12

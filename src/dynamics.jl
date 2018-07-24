@@ -7,12 +7,12 @@ end
 s_ω(p::DynamicParameters) = p.vmax/p.ωmax
 
 function vmax_backward(params::DynamicParameters, C::Line, vend::Float64, s::Float64)
-    Δl =  length(C) - curves.l(C, s)
+    Δl =  length(C) - curves.length(C, s)
     min(params.vmax, sqrt(vend^2 + 2*params.amax*Δl))
 end
 
 function vmax_backward(params::DynamicParameters, C::Arc, vend::Float64, s::Float64)
-    Δl =  length(C) - curves.l(C, s)
+    Δl =  length(C) - curves.length(C, s)
     κ = curves.curvature(C)
     vmax_local = 1./sqrt(1./params.vmax^2 + (κ/params.wmax)^2)
     min(vmax_local, sqrt(vend^2 + 2*params.amax*Δl))
@@ -24,7 +24,7 @@ function vmax_backward(params::DynamicParameters, C::Clothoid, vend::Float64, s:
     vend_local = 1./sqrt(1./params.vmax^2 + (κ/params.wmax)^2)
     vend = min(vend, vend_local)
 
-    Δl =  length(C) - curves.l(C, s)
+    Δl =  length(C) - curves.length(C, s)
     κ = curves.curvature(C, s)
     vmax_local = 1./sqrt(1./params.vmax^2 + (κ/params.wmax)^2)
     min(vmax_local, sqrt(vend^2 + 2*params.amax*Δl))
@@ -43,12 +43,12 @@ function vmax_backward(params::DynamicParameters, C::PolyCurve, vend::Float64, s
 end
 
 function vmax_forward(params::DynamicParameters, C::Line, vstart::Float64, s::Float64)
-    Δl =  curves.l(C, s)
+    Δl =  curves.length(C, s)
     min(params.vmax, sqrt(vstart^2 + 2*params.amax*Δl))
 end
 
 function vmax_forward(params::DynamicParameters, C::Arc, vstart::Float64, s::Float64)
-    Δl =  curves.l(C, s)
+    Δl =  curves.length(C, s)
     κ = curves.curvature(C)
     vmax_circle = 1./sqrt(1./params.vmax^2 + (κ/params.wmax)^2)
     min(vmax_circle, sqrt(vstart^2 + 2*params.amax*Δl))
@@ -59,7 +59,7 @@ function vmax_forward(params::DynamicParameters, C::Clothoid, vstart::Float64, s
     vstart_local = 1./sqrt(1./params.vmax^2 + (κ/params.wmax)^2)
     vstart = min(vstart, vstart_local)
 
-    Δl =  curves.l(C, s)
+    Δl =  curves.length(C, s)
     κ = curves.curvature(C, s)
     vmax_local = 1./sqrt(1./params.vmax^2 + (κ/params.wmax)^2)
     min(vmax_local, sqrt(vstart^2 + 2*params.amax*Δl))

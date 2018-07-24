@@ -19,9 +19,9 @@ end
 # Implement Curve interface
 smax(C::Line) = C.length
 
-l(C::Line, s::Real) = s
+length(C::Line, s::Real) = s
 length(C::Line) = C.length
-dl(C::Line, s::Real) = 1.
+dlength(C::Line, s::Real) = 1.
 
 θ(C::Line, s::Real) = atan2(C.direction[2], C.direction[1])
 

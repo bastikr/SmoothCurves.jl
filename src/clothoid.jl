@@ -17,9 +17,9 @@ end
 # Implement Curve interface
 smax(C::Clothoid) = C.l1 - C.l0
 
-l(C::Clothoid, s::Real) = s
-length(C::Clothoid) = l(C, smax(C))
-dl(C::Clothoid, s::Real) = 1.
+length(C::Clothoid, s::Real) = s
+length(C::Clothoid) = length(C, smax(C))
+dlength(C::Clothoid, s::Real) = 1.
 
 θ(C::Clothoid, s::Real) = normalize_angle(C.rotation + C.λ*(C.l0 + s)^2)
 

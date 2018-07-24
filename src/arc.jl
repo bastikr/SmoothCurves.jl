@@ -20,9 +20,10 @@ arcangle(C::Arc, Δϕ::Real) = C.angle0 + sign(C)*Δϕ
 # Implement Curve interface
 smax(C::Arc) = abs(C.angle1 - C.angle0)
 
-l(C::Arc, Δϕ::Real) = C.radius*Δϕ
-length(C::Arc) = l(C, smax(C))
-dl(C::Arc, Δϕ::Real) = C.radius
+length(C::Arc, Δϕ::Real) = C.radius*Δϕ
+length(C::Arc) = length(C, smax(C))
+
+dlength(C::Arc, Δϕ::Real) = C.radius
 
 θ(C::Arc, Δϕ::Real) = normalize_angle(arcangle(C, Δϕ) + sign(C)*π/2)
 

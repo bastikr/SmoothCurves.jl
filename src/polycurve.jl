@@ -29,7 +29,7 @@ function dispatch(f, C::PolyCurve, s::Float64)
     f(C.curves[i], s_i)
 end
 
-function l(C::PolyCurve, s::Float64)
+function length(C::PolyCurve, s::Float64)
     i = curveindex(C, s)
     s_i = s
     if (i>1)
@@ -39,12 +39,12 @@ function l(C::PolyCurve, s::Float64)
     for j=1:i-1
         l += length(C.curve[j])
     end
-    l_ + l(C.curves[i], s_i)
+    l_ + length(C.curves[i], s_i)
 end
 
 smax(C::PolyCurve) = C.cum_s[end]
 point(C::PolyCurve, s::Float64) = dispatch(point, C, s)
-dl(C::PolyCurve, s::Float64) = dispatch(dl, C, s)
+dlength(C::PolyCurve, s::Float64) = dispatch(dl, C, s)
 θ(C::PolyCurve, s::Float64) = dispatch(θ, C, s)
 dθ(C::PolyCurve, s::Float64) = dispatch(dθ, C, s)
 curvature(C::PolyCurve, s::Float64) = dispatch(curvature, C, s)
