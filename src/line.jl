@@ -28,5 +28,5 @@ dlength(C::Line, s::Real) = 1.
 curvature(C::Line, s::Real) = 0.
 dcurvature(C::Line, s::Real) = 0.
 
-point(C::Line, l::Real) = C.origin + l*C.direction
+point(C::Line, s::Real) = C.origin + s*C.direction
 dpoint(C::Line, s::Real) = C.direction
