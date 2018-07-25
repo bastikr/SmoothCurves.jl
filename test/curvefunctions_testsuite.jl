@@ -1,22 +1,22 @@
 using Base.Test
-using SmoothCurves
+import SmoothCurves
 
 using FDM
 
 
-function test_curvefunctions(C::curves.Curve)
+function test_curvefunctions(C::SmoothCurves.Curve)
     d_ds = central_fdm(3, 1)
 
-    point(s) = curves.point(C, s)
-    dpoint(s) = curves.dpoint(C, s)
-    length(s) = curves.length(C, s)
-    dlength(s) = curves.dlength(C, s)
-    tangentangle(s) = curves.tangentangle(C, s)
-    curvature(s) = curves.curvature(C, s)
-    dcurvature(s) = curves.dcurvature(C, s)
+    point(s) = SmoothCurves.point(C, s)
+    dpoint(s) = SmoothCurves.dpoint(C, s)
+    length(s) = SmoothCurves.length(C, s)
+    dlength(s) = SmoothCurves.dlength(C, s)
+    tangentangle(s) = SmoothCurves.tangentangle(C, s)
+    curvature(s) = SmoothCurves.curvature(C, s)
+    dcurvature(s) = SmoothCurves.dcurvature(C, s)
 
-    Δs = curves.smax(C)/10
-    for s=0:Δs:curves.smax(C)
+    Δs = SmoothCurves.smax(C)/10
+    for s=0:Δs:smax(C)
         # Test dp/ds
         @test dpoint(s) ≈ d_ds(point, s) atol=1e-12
 

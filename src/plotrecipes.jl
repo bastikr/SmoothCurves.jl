@@ -21,12 +21,12 @@ using .Pose
     end
 end
 
-@recipe function f(curve::curves.Curve; spacing=0.1)
+@recipe function f(curve::Curve; spacing=0.1)
     aspect_ratio --> :equal
     label --> ""
 
     n = round(length(curve)/spacing, RoundUp)
-    svec = linspace(0., curves.smax(curve), n)
-    points = curves.point.(curve, svec)
-    curves.x.(points), curves.y.(points)
+    svec = linspace(0., smax(curve), n)
+    points = point.(curve, svec)
+    x.(points), y.(points)
 end
