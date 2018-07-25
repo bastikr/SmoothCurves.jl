@@ -14,8 +14,8 @@ end
 Base.length(C::PolyCurve) = C.cum_s[end]
 
 function subcurveindex(C::PolyCurve, s::Float64)
-    if s < 0 || s > C.cum_s[end]
-        throw(DomainError("s has to be between 0 and $(C.cum_s[end]) but is $s."))
+    if s>C.cum_s[end]
+        return length(C.curves)
     end
     findfirst(x->(x-s>=0), C.cum_s)
 end
