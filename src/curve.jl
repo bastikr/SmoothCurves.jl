@@ -1,4 +1,4 @@
-import Base.length
+import Base: length
 
 
 using StaticArrays

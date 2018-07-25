@@ -1,5 +1,4 @@
-import Base.length
-import Base.sign
+import Base: length, sign
 
 using StaticArrays: SVector
 
