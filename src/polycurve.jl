@@ -11,8 +11,6 @@ struct PolyCurve <: Curve
     end
 end
 
-Base.length(C::PolyCurve) = C.cum_s[end]
-
 function subcurveindex(C::PolyCurve, s::Float64)
     if s>C.cum_s[end]
         return length(C.curves)
