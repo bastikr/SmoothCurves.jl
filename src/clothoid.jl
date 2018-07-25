@@ -33,6 +33,10 @@ function Fresnel(λ::Float64, s::Real)
     return QuadGK.quadgk(f, 0., s)[1]::SVector{2, Float64}
 end
 
+function smax_from_deviation(λ, dphi)
+    sqrt(abs(dphi/(2*λ)))
+end
+
 
 # Implement Curve interface
 smax(C::Clothoid) = C.l1 - C.l0
@@ -56,54 +60,4 @@ function dpoint(C::Clothoid, s::Real)
     dx = cos(C.λ*l_^2)
     dy = sin(C.λ*l_^2)
     return rotate2d(C.rotation, dx, dy)::SVector{2, Float64}
-end
-
-
-# Construction functions
-function smax_from_deviation(λ, dphi)
-    sqrt(abs(dphi/(2*λ)))
-end
-
-function construct_clothoids(λ::Real, p0, v0, v1)
-    v0_ = SVector{2}(normalize(v0))
-    v1_ = SVector{2}(normalize(v1))
-    λ = abs(λ)
-    dphi = deviation(v0_, v1_)
-    phi0 = deviation(v0_, [1, 0])
-    phi1 = deviation(v1_, [1, 0])
-    lmax = smax_from_deviation(λ, abs(dphi))
-    xmax, ymax = Fresnel(λ, lmax)
-
-    shift = xmax + ymax*tan(abs(dphi)/2)
-    C0 = Clothoid(p0, shift, -phi0, sign(dphi)*λ, 0., lmax)
-
-    shift = xmax + ymax*tan(abs(dphi)/2)
-    C1 = Clothoid(p0, -shift, -phi1, -sign(dphi)*λ, -lmax, 0.)
-    return C0, C1
-end
-
-
-function construct_clothoids2(dmax::Real, p0, p1, p2)
-    v0_ = SVector{2}(normalize(p1-p0))
-    v1_ = SVector{2}(normalize(p2-p1))
-
-    dphi = deviation(v0_, v1_)
-    phi0 = deviation(v0_, [1, 0])
-    phi1 = deviation(v1_, [1, 0])
-
-    θ = abs(dphi/2)
-    g = cos(θ)*sqrt(θ)/Fsin(1., sqrt(θ))
-    d = sin(2*θ)^(3./2)
-
-    smax = dmax*d*g
-    λ = θ/smax^2
-
-    xmax, ymax = Fresnel(λ, smax)
-
-    shift = xmax + ymax*tan(abs(dphi)/2)
-    C0 = Clothoid(p1, shift, -phi0, sign(dphi)*λ, 0., smax)
-
-    shift = xmax + ymax*tan(abs(dphi)/2)
-    C1 = Clothoid(p1, -shift, -phi1, -sign(dphi)*λ, -smax, 0.)
-    return C0, C1
 end

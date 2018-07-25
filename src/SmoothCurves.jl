@@ -13,6 +13,7 @@ include("polycurve.jl")
 include("line.jl")
 include("arc.jl")
 include("clothoid.jl")
+include("construction.jl")
 
 include("plotrecipes.jl")
 

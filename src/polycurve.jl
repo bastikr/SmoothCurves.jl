@@ -49,28 +49,3 @@ tangentangle(C::PolyCurve, s::Float64) = dispatch(tangentangle, C, s)
 dtangentangle(C::PolyCurve, s::Float64) = dispatch(dtangentangle, C, s)
 curvature(C::PolyCurve, s::Float64) = dispatch(curvature, C, s)
 dcurvature(C::PolyCurve, s::Float64) = dispatch(dcurvature, C, s)
-
-
-function construct_curve(λ, p0, p1, p2)
-    v0 = p1 - p0
-    v1 = p2 - p1
-    C0, C1 = construct_clothoids(λ, p1, v0, v1)
-    p0_ = collect(point(C0, 0.))
-    dp0 = p0_ - p0
-    L0 = Line(p0, dp0, norm(dp0))
-    p1_ = collect(point(C1, length(C1)))
-    dp1 = p2 - p1_
-    L1 = Line(p1_, dp1, norm(dp1))
-    PolyCurve(L0, C0, C1, L1)
-end
-
-function construct_curve2(dmax, p0, p1, p2)
-    C0, C1 = construct_clothoids2(dmax, p0, p1, p2)
-    p0_ = collect(point(C0, 0.))
-    dp0 = p0_ - p0
-    L0 = Line(p0, dp0, norm(dp0))
-    p1_ = collect(point(C1, length(C1)))
-    dp1 = p2 - p1_
-    L1 = Line(p1_, dp1, norm(dp1))
-    PolyCurve(L0, C0, C1, L1)
-end
