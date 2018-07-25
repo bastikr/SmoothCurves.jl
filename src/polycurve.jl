@@ -13,33 +13,30 @@ end
 
 Base.length(C::PolyCurve) = C.cum_s[end]
 
-function curveindex(C::PolyCurve, s::Float64)
+function subcurveindex(C::PolyCurve, s::Float64)
     if s < 0 || s > C.cum_s[end]
         throw(DomainError("s has to be between 0 and $(C.cum_s[end]) but is $s."))
     end
     findfirst(x->(x-s>=0), C.cum_s)
 end
 
+subcurveparameter(C::PolyCurve, s::Float64, index::Int64) = index==1 ? s : s - C.cum_s[index-1]
+subcurveparameter(C::PolyCurve, s::Float64) = subcurveparameter(C, s, subcurveindex(C, s))
+
 function dispatch(f, C::PolyCurve, s::Float64)
-    i = curveindex(C, s)
-    s_i = s
-    if (i>1)
-        s_i -= C.cum_s[i-1]
-    end
+    i = subcurveindex(C, s)
+    s_i = subcurveparameter(C, s, i)
     f(C.curves[i], s_i)
 end
 
 function length(C::PolyCurve, s::Float64)
-    i = curveindex(C, s)
-    s_i = s
-    if (i>1)
-        s_i -= C.cum_s[i-1]
-    end
-    l_ = 0.
+    i = subcurveindex(C, s)
+    l = 0.
     for j=1:i-1
         l += length(C.curve[j])
     end
-    l_ + length(C.curves[i], s_i)
+    s_i = subcurveparameter(C, s, i)
+    l + length(C.curves[i], s_i)
 end
 
 smax(C::PolyCurve) = C.cum_s[end]
