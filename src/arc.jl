@@ -21,8 +21,6 @@ arcangle(C::Arc, Δϕ::Real) = C.angle0 + sign(C)*Δϕ
 smax(C::Arc) = abs(C.angle1 - C.angle0)
 
 length(C::Arc, Δϕ::Real) = C.radius*Δϕ
-length(C::Arc) = length(C, smax(C))
-
 dlength(C::Arc, Δϕ::Real) = C.radius
 
 tangentangle(C::Arc, Δϕ::Real) = normalize_angle(arcangle(C, Δϕ) + sign(C)*π/2)
@@ -32,11 +30,11 @@ curvature(C::Arc, Δϕ::Real) = curvature(C)
 dcurvature(C::Arc, Δϕ::Real) = 0.
 
 function point(C::Arc, Δϕ::Real)
-    ϕ_ = arcangle(C, Δϕ)
-    C.origin + C.radius*SVector{2, Float64}(cos(ϕ_), sin(ϕ_))
+    ϕ = arcangle(C, Δϕ)
+    C.origin + C.radius*SVector{2, Float64}(cos(ϕ), sin(ϕ))
 end
 
 function dpoint(C::Arc, Δϕ::Real)
-    ϕ_ = arcangle(C, Δϕ)
-    C.radius*sign(C)*SVector{2, Float64}(-sin(ϕ_), cos(ϕ_))
+    ϕ = arcangle(C, Δϕ)
+    C.radius*sign(C)*SVector{2, Float64}(-sin(ϕ), cos(ϕ))
 end
