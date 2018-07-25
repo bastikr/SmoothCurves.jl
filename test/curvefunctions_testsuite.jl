@@ -5,6 +5,11 @@ using FDM
 
 
 function test_curvefunctions(C::SmoothCurves.Curve)
+    l = SmoothCurves.length(C)
+    @test l >= 0
+    @test l == SmoothCurves.length(C, SmoothCurves.smax(C))
+    @test 0 == SmoothCurves.length(C, 0.)
+
     d_ds = central_fdm(3, 1)
 
     point(s) = SmoothCurves.point(C, s)
