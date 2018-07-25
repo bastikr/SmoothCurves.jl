@@ -33,7 +33,7 @@ function length(C::PolyCurve, s::Float64)
     i = subcurveindex(C, s)
     l = 0.
     for j=1:i-1
-        l += length(C.curve[j])
+        l += length(C.curves[j])
     end
     s_i = subcurveparameter(C, s, i)
     l + length(C.curves[i], s_i)
