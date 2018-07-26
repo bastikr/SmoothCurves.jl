@@ -17,14 +17,6 @@ end
 # Clothoid specific functions
 l(C::Clothoid, s::Real) = C.l0 + s
 
-function Fcos(λ::Float64, s::Float64)
-    return QuadGK.quadgk(x->cos(λ*x^2), 0., s)[1]::Float64
-end
-
-function Fsin(λ::Float64, s::Float64)
-    return QuadGK.quadgk(x->sin(λ*x^2), 0., s)[1]::Float64
-end
-
 function Fresnel(λ::Float64, s::Real)
     function f(x::Float64)
         t = λ*x^2

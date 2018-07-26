@@ -27,7 +27,8 @@ function construct_clothoids2(dmax::Real, p0, p1, p2)
     phi1 = deviation(v1_, [1, 0])
 
     θ = abs(dphi/2)
-    g = cos(θ)*sqrt(θ)/Fsin(1., sqrt(θ))
+    Fcos, Fsin = Fresnel(1., sqrt(θ))
+    g = cos(θ)*sqrt(θ)/Fsin
     d = sin(2*θ)^(3./2)
 
     smax = dmax*d*g
