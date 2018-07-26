@@ -21,26 +21,28 @@ end
 subcurveparameter(C::PolyCurve, s::Float64, index::Int64) = index==1 ? s : s - C.cum_s[index-1]
 subcurveparameter(C::PolyCurve, s::Float64) = subcurveparameter(C, s, subcurveindex(C, s))
 
-function dispatch(f, C::PolyCurve, s::Float64)
-    i = subcurveindex(C, s)
-    s_i = subcurveparameter(C, s, i)
+function dispatch(f, C::PolyCurve, s::Real)
+    s_ = convert(Float64, s)
+    i = subcurveindex(C, s_)
+    s_i = subcurveparameter(C, s_, i)
     f(C.curves[i], s_i)
 end
 
-function length(C::PolyCurve, s::Float64)
-    i = subcurveindex(C, s)
+function length(C::PolyCurve, s::Real)
+    s_ = convert(Float64, s)
+    i = subcurveindex(C, s_)
     l = 0.
     for j=1:i-1
         l += length(C.curves[j])
     end
-    s_i = subcurveparameter(C, s, i)
+    s_i = subcurveparameter(C, s_, i)
     l + length(C.curves[i], s_i)
 end
 
 smax(C::PolyCurve) = C.cum_s[end]
-point(C::PolyCurve, s::Float64) = dispatch(point, C, s)
-dpoint(C::PolyCurve, s::Float64) = dispatch(dpoint, C, s)
-dlength(C::PolyCurve, s::Float64) = dispatch(dlength, C, s)
-tangentangle(C::PolyCurve, s::Float64) = dispatch(tangentangle, C, s)
-curvature(C::PolyCurve, s::Float64) = dispatch(curvature, C, s)
-dcurvature(C::PolyCurve, s::Float64) = dispatch(dcurvature, C, s)
+point(C::PolyCurve, s::Real) = dispatch(point, C, s)
+dpoint(C::PolyCurve, s::Real) = dispatch(dpoint, C, s)
+dlength(C::PolyCurve, s::Real) = dispatch(dlength, C, s)
+tangentangle(C::PolyCurve, s::Real) = dispatch(tangentangle, C, s)
+curvature(C::PolyCurve, s::Real) = dispatch(curvature, C, s)
+dcurvature(C::PolyCurve, s::Real) = dispatch(dcurvature, C, s)

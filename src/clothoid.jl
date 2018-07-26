@@ -17,12 +17,14 @@ end
 # Clothoid specific functions
 l(C::Clothoid, s::Real) = C.l0 + s
 
-function Fresnel(λ::Float64, s::Real)
+function Fresnel(λ::Real, s::Real)
+    λ_ = convert(Float64, λ)
+    s_ = convert(Float64, s)
     function f(x::Float64)
-        t = λ*x^2
+        t = λ_*x^2
         SVector{2, Float64}(cos(t), sin(t))
     end
-    return QuadGK.quadgk(f, 0., s)[1]::SVector{2, Float64}
+    QuadGK.quadgk(f, 0., s_)[1]::SVector{2, Float64}
 end
 
 function smax_from_deviation(λ, dphi)
