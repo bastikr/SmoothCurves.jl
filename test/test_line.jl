@@ -2,8 +2,9 @@ using Base.Test
 using SmoothCurves
 
 
-include("curvefunctions_testsuite.jl")
+@test_throws DomainError Line([0, 0], [1, 0], -0.1)
 
+include("curvefunctions_testsuite.jl")
 
 origin = [1.7, -6.3]
 L = 7.3
