@@ -5,7 +5,7 @@ using StaticArrays
 
 makedocs(
     sitename="SmoothCurves.jl",
-    # format=:html,
+    format=:html,
     modules=[SmoothCurves],
     pages=[
         "index.md",
@@ -17,5 +17,7 @@ makedocs(
 deploydocs(
     repo="github.com/bastikr/SmoothCurves.jl.git",
     julia="0.6",
-    deps=Deps.pip("mkdocs", "python-markdown-math")
+    target="build",
+    make=()->nothing,
+    deps=Deps.pip()
 )
