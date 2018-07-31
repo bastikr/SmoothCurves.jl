@@ -5,11 +5,17 @@ using StaticArrays
 
 makedocs(
     sitename="SmoothCurves.jl",
-    format=:html,
+    # format=:html,
     modules=[SmoothCurves],
     pages=[
         "index.md",
         "clothoid.md",
         "API" => "api.md"
     ]
+)
+
+deploydocs(
+    repo="github.com/bastikr/SmoothCurves.jl.git",
+    julia="0.6",
+    deps=Deps.pip("mkdocs", "python-markdown-math")
 )
