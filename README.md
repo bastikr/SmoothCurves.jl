@@ -1,5 +1,7 @@
 # SmoothCurves.jl
 
+[![Stable Docs][docs-stable-img]][docs-stable-url]
+[![Latest Docs][docs-latest-img]][docs-latest-url]
 [![Travis build status][travis-img]][travis-url]
 [![Test coverage status on coveralls][coveralls-img]][coveralls-url]
 [![Test coverage status on codecov][codecov-img]][codecov-url]
@@ -30,6 +32,12 @@ Curve Interface:
 
 All derivatives are given in respect to the parameter `s`.
 
+
+[docs-stable-img]:https://img.shields.io/badge/docs-stable-blue.svg
+[docs-stable-url]:https://bastikr.github.io/SmoothCurves.jl/stable/index.html
+
+[docs-latest-img]:https://img.shields.io/badge/docs-latest-blue.svg
+[docs-latest-url]:https://bastikr.github.io/SmoothCurves.jl/latest/index.html
 
 [travis-url]: https://travis-ci.com/bastikr/SmoothCurves.jl
 [travis-img]: https://travis-ci.com/bastikr/SmoothCurves.jl.svg?branch=master
