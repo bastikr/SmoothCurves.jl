@@ -3,7 +3,6 @@
 [![Stable Docs][docs-stable-img]][docs-stable-url]
 [![Latest Docs][docs-latest-img]][docs-latest-url]
 [![Travis build status][travis-img]][travis-url]
-[![Test coverage status on coveralls][coveralls-img]][coveralls-url]
 [![Test coverage status on codecov][codecov-img]][codecov-url]
 
 Create smooth curves from basic curve types.
@@ -41,9 +40,6 @@ All derivatives are given in respect to the parameter `s`.
 
 [travis-url]: https://travis-ci.com/bastikr/SmoothCurves.jl
 [travis-img]: https://travis-ci.com/bastikr/SmoothCurves.jl.svg?branch=master
-
-[coveralls-url]: https://coveralls.io/github/bastikr/SmoothCurves.jl?branch=master
-[coveralls-img]: https://coveralls.io/repos/github/bastikr/SmoothCurves.jl/badge.svg?branch=master
 
 [codecov-url]: https://codecov.io/gh/bastikr/SmoothCurves.jl
 [codecov-img]: https://codecov.io/gh/bastikr/SmoothCurves.jl/branch/master/graph/badge.svg
