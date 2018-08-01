@@ -21,7 +21,7 @@ var documenterSearchIndex = {"docs": [
     "page": "SmoothCurves.jl",
     "title": "Curve Types",
     "category": "section",
-    "text": "Curve\nClothoid\n"
+    "text": "Curve\nClothoid\nArc"
 },
 
 {
@@ -73,6 +73,30 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "arc.html#",
+    "page": "Arc",
+    "title": "Arc",
+    "category": "page",
+    "text": ""
+},
+
+{
+    "location": "arc.html#Arc-1",
+    "page": "Arc",
+    "title": "Arc",
+    "category": "section",
+    "text": ""
+},
+
+{
+    "location": "arc.html#Additional-Functions-1",
+    "page": "Arc",
+    "title": "Additional Functions",
+    "category": "section",
+    "text": "Arc"
+},
+
+{
     "location": "api.html#",
     "page": "API",
     "title": "API",
@@ -97,11 +121,19 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "api.html#Curve-Types-1",
+    "location": "api.html#SmoothCurves.Arc",
+    "page": "API",
+    "title": "SmoothCurves.Arc",
+    "category": "type",
+    "text": "Arc(origin, radius, angle0, angle1)\n\nArc centered at origin with the given radius going from the first to the second angle. As parametrization the angle difference to the starting angle is used.\n\n\n\n"
+},
+
+{
+    "location": "api.html#API-Curve-Types-1",
     "page": "API",
     "title": "Curve Types",
     "category": "section",
-    "text": "Curve"
+    "text": "Curve\nArc\nCurve\nArc"
 },
 
 {
@@ -169,11 +201,11 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "api.html#Curve-Interface-1",
+    "location": "api.html#API-Curve-Interface-1",
     "page": "API",
     "title": "Curve Interface",
     "category": "section",
-    "text": "smax\npoint\ndpoint\nlength\ndlength\ncurvature\ndcurvature\ntangentangle"
+    "text": "smax\npoint\ndpoint\nlength\ndlength\ncurvature\ndcurvature\ntangentangle\nsmax\npoint\ndpoint\nlength\ndlength\ncurvature\ndcurvature\ntangentangle"
 },
 
 {
@@ -185,11 +217,19 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "api.html#Arc-1",
+    "location": "api.html#Base.sign-Tuple{SmoothCurves.Arc}",
+    "page": "API",
+    "title": "Base.sign",
+    "category": "method",
+    "text": "sign(C::Arc)\n\nSign of the curvature of the Arc.\n\n\n\n"
+},
+
+{
+    "location": "api.html#API-Arc-1",
     "page": "API",
     "title": "Arc",
     "category": "section",
-    "text": "sign"
+    "text": "sign(C::Arc)"
 },
 
 ]}
