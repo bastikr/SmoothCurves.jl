@@ -5,9 +5,9 @@ using SmoothCurves
 include("curvefunctions_testsuite.jl")
 
 begin
-C_l0 = Line([1, 2], [1, 0], 3.2)
-C_l1 = Line([4.2, 2], [0, 1], 2.4)
-C_l2 = Line([4.2, 4.4], [-1, 1], 2.6)
+C_l0 = LineSegment([1, 2], [4.2, 2])
+C_l1 = LineSegment([4.2, 2], [4.2, 4.4])
+C_l2 = LineSegment([4.2, 4.4], [1.6, 7])
 C = PolyCurve(C_l0, C_l1, C_l2)
 
 @test SmoothCurves.subcurveindex(C, -1.) == 1
@@ -22,9 +22,9 @@ C = PolyCurve(C_l0, C_l1, C_l2)
 @test SmoothCurves.subcurveparameter(C, 7.) ≈ 1.4
 @test SmoothCurves.subcurveparameter(C, 9.) ≈ 3.4
 
-@test smax(C) == 8.2
-@test length(C) == 8.2
-@test length(C, smax(C)) == 8.2
+@test smax(C) == smax(C_l0) + smax(C_l1) + smax(C_l2)
+@test length(C) == length(C_l0) + length(C_l1) + length(C_l2)
+@test length(C, smax(C)) == length(C)
 end
 
 C_arc = Arc([1, 3], 2., 0., π)

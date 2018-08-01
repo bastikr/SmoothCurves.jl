@@ -3,29 +3,30 @@ import Base: length
 using StaticArrays: SVector
 
 
-struct Line <: Curve
-    origin::SVector{2, Float64}
-    direction::SVector{2, Float64}
-    length::Float64
-
-    function Line(origin, direction, length::Number)
-        if length<0
-            throw(DomainError("length has to be positive"))
-        end
-        new(origin, normalize(direction), length)
-    end
+struct LineSegment <: Curve
+    p0::SVector{2, Float64}
+    p1::SVector{2, Float64}
 end
 
+direction(C::LineSegment) = normalize(C.p1 - C.p0)
+
+
 # Implement Curve interface
-smax(C::Line) = C.length
+smax(C::LineSegment) = norm(C.p1 - C.p0)
 
-length(C::Line, s::Real) = s
-dlength(C::Line, s::Real) = 1.
+length(C::LineSegment, s::Real) = s
+dlength(C::LineSegment, s::Real) = 1.
 
-tangentangle(C::Line, s::Real) = atan2(C.direction[2], C.direction[1])
+function tangentangle(C::LineSegment, s::Real)
+    direction = normalize(C.p1 - C.p0)
+    atan2(direction[2], direction[1])
+end
 
-curvature(C::Line, s::Real) = 0.
-dcurvature(C::Line, s::Real) = 0.
+curvature(C::LineSegment, s::Real) = 0.
+dcurvature(C::LineSegment, s::Real) = 0.
 
-point(C::Line, s::Real) = C.origin + s*C.direction
-dpoint(C::Line, s::Real) = C.direction
+function point(C::LineSegment, s::Real)
+    r = s/smax(C)
+    (1-r)*C.p0 + r*C.p1
+end
+dpoint(C::LineSegment, s::Real) = direction(C)

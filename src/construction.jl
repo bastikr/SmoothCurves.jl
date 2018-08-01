@@ -88,22 +88,18 @@ function construct_curve(λ, p0, p1, p2)
     v1 = p2 - p1
     C0, C1 = construct_clothoids(λ, p1, v0, v1)
     p0_ = collect(point(C0, 0.))
-    dp0 = p0_ - p0
-    L0 = Line(p0, dp0, norm(dp0))
+    L0 = LineSegment(p0, p0_)
     p1_ = collect(point(C1, length(C1)))
-    dp1 = p2 - p1_
-    L1 = Line(p1_, dp1, norm(dp1))
+    L1 = LineSegment(p1_, p2)
     PolyCurve(L0, C0, C1, L1)
 end
 
 function construct_curve2(dmax, p0, p1, p2)
     C0, C1 = construct_clothoids2(dmax, p0, p1, p2)
     p0_ = collect(point(C0, 0.))
-    dp0 = p0_ - p0
-    L0 = Line(p0, dp0, norm(dp0))
+    L0 = LineSegment(p0, p0_)
     p1_ = collect(point(C1, length(C1)))
-    dp1 = p2 - p1_
-    L1 = Line(p1_, dp1, norm(dp1))
+    L1 = LineSegment(p1_, p2)
     PolyCurve(L0, C0, C1, L1)
 end
 
@@ -121,14 +117,14 @@ function construct_curve3(dmax, points)
         C = construct_clothoids3(dmax, p0, p1, p2)
         p0_ = point(C, 0)
         if norm(p0_ - p0) > 1e-12
-            push!(curves, Line(p0, p0_-p0, norm(p0_-p0)))
+            push!(curves, LineSegment(p0, p0_))
         end
         push!(curves, C.curves[1])
         push!(curves, C.curves[2])
         p2_ = point(C, smax(C))
     end
     if norm(p2_ - points[end]) > 1e-12
-        push!(curves, Line(p2_, points[end]-p2_, norm(p2_-points[end])))
+        push!(curves, LineSegment(p2_, points[end]))
     end
     return PolyCurve(curves...)
 end
