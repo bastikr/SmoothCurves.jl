@@ -10,7 +10,7 @@ export Curve, LineSegment, Arc, Clothoid, PolyCurve,
 include("curve.jl")
 include("geometry.jl")
 include("polycurve.jl")
-include("line.jl")
+include("linesegment.jl")
 include("arc.jl")
 include("clothoid.jl")
 include("construction.jl")
