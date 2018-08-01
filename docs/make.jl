@@ -10,6 +10,7 @@ makedocs(
     pages=[
         "index.md",
         "clothoid.md",
+        "arc.md",
         "API" => "api.md"
     ]
 )

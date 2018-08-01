@@ -2,7 +2,13 @@ import Base: length, sign
 
 using StaticArrays: SVector
 
+"""
+    Arc(origin, radius, angle0, angle1)
 
+Arc centered at `origin` with the given `radius` going from the first to the
+second angle. As parametrization the angle difference to the starting angle is
+used.
+"""
 struct Arc <: Curve
     origin::SVector{2, Float64}
     radius::Float64
@@ -12,6 +18,11 @@ end
 
 
 # Special Arc specific functions
+"""
+    sign(C::Arc)
+
+Sign of the curvature of the Arc.
+"""
 sign(C::Arc) = sign(C.angle1 - C.angle0)
 arcangle(C::Arc, Δϕ::Real) = C.angle0 + sign(C)*Δϕ
 

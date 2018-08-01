@@ -7,6 +7,7 @@ Create smooth curves, e.g. usable for mobile robot path following.
 
 [`Curve`](@ref)\
 [Clothoid](@ref)\
+[Arc](@ref)
 
 
 ## Curve Interface
