@@ -1,17 +1,18 @@
 module SmoothCurves
 
-export Curve, LineSegment, Arc, Clothoid, PolyCurve,
+export Curve, LineSegment, ArcSegment, Clothoid, PolyCurve,
        smax, length, dlength,
        tangentangle,
        curvature, dcurvature,
-       point, dpoint
+       point, dpoint,
+       direction
 
 
 include("curve.jl")
 include("geometry.jl")
 include("polycurve.jl")
 include("linesegment.jl")
-include("arc.jl")
+include("arcsegment.jl")
 include("clothoid.jl")
 include("construction.jl")
 

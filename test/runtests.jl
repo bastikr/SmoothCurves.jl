@@ -1,7 +1,7 @@
 
 names = [
     "test_linesegment.jl",
-    "test_circle.jl",
+    "test_arcsegment.jl",
     "test_clothoid.jl",
     "test_polycurve.jl"
 ]

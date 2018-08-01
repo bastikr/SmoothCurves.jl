@@ -11,7 +11,7 @@ Create smooth curves from basic curve types.
 Implemented basic curves:
 
 * Line
-* Arc
+* ArcSegment
 * Clothoid
 * PolyCurve
 

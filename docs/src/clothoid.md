@@ -33,46 +33,48 @@ scatter!([p_begin[1], p_split[1], p_end[1]], [p_begin[2], p_split[2], p_end[2]],
         color=1, label="") # hide
 
 # Plot polygon lines # hide
-C_l0 = Line(p0, p1-p0, norm(p1-p0)) # hide
-C_l1 = Line(p1, p2-p1, norm(p2-p1)) # hide
+C_l0 = LineSegment(p0, p1) # hide
+C_l1 = LineSegment(p1, p2) # hide
 plot!(C_l0, lc=:black) # hide
 plot!(C_l1, lc=:black) # hide
 
-p_annotate = p1 - (δ + 0.5*Δx)*C_l0.direction - 0.2*n0 # hide
+p_annotate = p1 - (δ + 0.5*Δx)*direction(C_l0) - 0.2*n0 # hide
 annotate!(p_annotate..., text("\\Delta x", 8, :center)) # hide
 
-p_annotate = p1 - 0.5*δ*C_l0.direction - 0.2*n0 # hide
+p_annotate = p1 - 0.5*δ*direction(C_l0) - 0.2*n0 # hide
 annotate!(p_annotate..., text("\\delta", 8, :center)) # hide
 
-C_l0_extension = Line(p1, p1-p0, dot(C_l0.direction, p2-p1)) # hide
+l = length(C_l1)*dot(direction(C_l0), direction(C_l1)) #hide
+C_l0_extension = LineSegment(p1, l*direction(C_l0)) # hide
 plot!(C_l0_extension, lc=:black, ls=:dash) # hide
 
 # Plot normal to first line # hide
-C_l0_normal = Line(p1 - δ*C_l0.direction, n0, Δy) # hide
+p_ = p1 - δ*direction(C_l0) # hide
+C_l0_normal = LineSegment(p_, p_ + Δy*n0) # hide
 plot!(C_l0_normal, lc=:black, ls=:solid) # hide
-p_annotate = C_l0_normal.origin - 0.2*C_l0.direction + 0.5*n0*C_l0_normal.length # hide
+p_annotate = point(C_l0_normal, 0) - 0.2*direction(C_l0) + 0.5*n0*length(C_l0_normal) # hide
 annotate!(p_annotate..., text("\\Delta y", 8, :center)) # hide
 
 # Plot mindistance # hide
-C_l_mindistance = Line(p1, -C_l0.direction + C_l1.direction, sqrt(δ^2 + Δy^2)) # hide
+C_l_mindistance = LineSegment(p1, p1 - δ*direction(C_l0) + Δy*direction(C_l0_normal)) # hide
 plot!(C_l_mindistance, lc=:black, ls=:solid) # hide
-p_annotate = p1 + 0.5*C_l_mindistance.direction*C_l_mindistance.length + [0.1, 0.1] # hide
+p_annotate = p1 + 0.5*direction(C_l_mindistance)*length(C_l_mindistance) + [0.1, 0.1] # hide
 annotate!(p_annotate..., text("d", 8, :center)) # hide
 
 # Plot theta angle # hide
 r_thetaangle = 0.3 # hide
-C_thetaangle = Arc(p1 + C_l_mindistance.length*C_l_mindistance.direction, r_thetaangle, # hide
-    SmoothCurves.deviation(C_l0.direction, -n0), # hide
-    SmoothCurves.deviation(C_l0.direction, -C_l_mindistance.direction)) # hide
+C_thetaangle = ArcSegment(p1 + length(C_l_mindistance)*direction(C_l_mindistance), r_thetaangle, # hide
+    SmoothCurves.deviation(direction(C_l0), -n0), # hide
+    SmoothCurves.deviation(direction(C_l0), -direction(C_l_mindistance))) # hide
 plot!(C_thetaangle, lc=:black, ls=:solid) # hide
-p_annotate = C_thetaangle.origin - (r_thetaangle+0.2)*normalize(C_l_mindistance.direction + n0) # hide
+p_annotate = C_thetaangle.origin - (r_thetaangle+0.2)*normalize(direction(C_l_mindistance) + n0) # hide
 annotate!(p_annotate..., text("\\theta", 8, :center)) # hide
 
 # Plot phi angle # hide
 r_phiangle = 0.5 # hide
-C_phiangle = Arc(p1, r_phiangle, tangentangle(C_l0, 0.), tangentangle(C_l1, 0.)) # hide
+C_phiangle = ArcSegment(p1, r_phiangle, tangentangle(C_l0, 0.), tangentangle(C_l1, 0.)) # hide
 plot!(C_phiangle, lc=:black, ls=:dash) # hide
-p_annotate = p1 + (r_phiangle + 0.2)*normalize(C_l0.direction + C_l1.direction) # hide
+p_annotate = p1 + (r_phiangle + 0.2)*normalize(direction(C_l0) + direction(C_l1)) # hide
 annotate!(p_annotate..., text("\\phi", 8, :center)) # hide
 ```
 

@@ -7,11 +7,11 @@ Depth=1
 ## [Curve Types](@id API Curve Types)
 
 [`Curve`](@ref)\
-[`Arc`](@ref)\
+[`ArcSegment`](@ref)\
 
 ```@docs
 Curve
-Arc
+ArcSegment
 ```
 
 ## [Curve Interface](@id API Curve Interface)
@@ -38,8 +38,8 @@ tangentangle
 
 ## Curve specific functions
 
-### [Arc](@id API Arc)
+### [ArcSegment](@id API ArcSegment)
 
 ```@docs
-sign(C::Arc)
+sign(C::ArcSegment)
 ```
