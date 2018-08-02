@@ -24,6 +24,7 @@ ArcSegment
 [`curvature`](@ref)\
 [`dcurvature`](@ref)\
 [`tangentangle`](@ref)\
+[`radialangle`](@ref)\
 
 ```@docs
 smax
@@ -34,6 +35,7 @@ dlength
 curvature
 dcurvature
 tangentangle
+radialangle
 ```
 
 ## Curve specific functions

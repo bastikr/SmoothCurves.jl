@@ -2,7 +2,7 @@ module SmoothCurves
 
 export Curve, LineSegment, ArcSegment, Clothoid, PolyCurve,
        smax, length, dlength,
-       tangentangle,
+       tangentangle, radialangle,
        curvature, dcurvature,
        point, dpoint,
        direction

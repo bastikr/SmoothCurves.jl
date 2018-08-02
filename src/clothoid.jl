@@ -39,6 +39,11 @@ length(C::Clothoid, s::Real) = s
 dlength(C::Clothoid, s::Real) = 1.
 
 tangentangle(C::Clothoid, s::Real) = normalize_angle(C.rotation + C.λ*l(C, s)^2)
+function radialangle(C::Clothoid, s::Real)
+    kappa = curvature(C, s)
+    sign_ = kappa==0 ? 1 : sign(kappa)
+    normalize_angle(C.rotation + C.λ*l(C, s)^2 - sign_*π/2)
+end
 
 curvature(C::Clothoid, s::Real) = 2*C.λ*l(C, s)
 dcurvature(C::Clothoid, s::Real) = 2*C.λ

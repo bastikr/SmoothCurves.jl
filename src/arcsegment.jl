@@ -24,7 +24,6 @@ end
 Sign of the curvature of the ArcSegment.
 """
 sign(C::ArcSegment) = sign(C.angle1 - C.angle0)
-arcangle(C::ArcSegment, Δϕ::Real) = C.angle0 + sign(C)*Δϕ
 
 
 # Implement Curve interface
@@ -33,18 +32,19 @@ smax(C::ArcSegment) = abs(C.angle1 - C.angle0)
 length(C::ArcSegment, Δϕ::Real) = C.radius*Δϕ
 dlength(C::ArcSegment, Δϕ::Real) = C.radius
 
-tangentangle(C::ArcSegment, Δϕ::Real) = normalize_angle(arcangle(C, Δϕ) + sign(C)*π/2)
+tangentangle(C::ArcSegment, Δϕ::Real) = normalize_angle(radialangle(C, Δϕ) + sign(C)*π/2)
+radialangle(C::ArcSegment, Δϕ::Real) = C.angle0 + sign(C)*Δϕ
 
 curvature(C::ArcSegment) = sign(C)/C.radius
 curvature(C::ArcSegment, Δϕ::Real) = curvature(C)
 dcurvature(C::ArcSegment, Δϕ::Real) = 0.
 
 function point(C::ArcSegment, Δϕ::Real)
-    ϕ = arcangle(C, Δϕ)
+    ϕ = radialangle(C, Δϕ)
     C.origin + C.radius*SVector{2, Float64}(cos(ϕ), sin(ϕ))
 end
 
 function dpoint(C::ArcSegment, Δϕ::Real)
-    ϕ = arcangle(C, Δϕ)
+    ϕ = radialangle(C, Δϕ)
     C.radius*sign(C)*SVector{2, Float64}(-sin(ϕ), cos(ϕ))
 end

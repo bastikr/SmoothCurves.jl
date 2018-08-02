@@ -21,6 +21,10 @@ function tangentangle(C::LineSegment, s::Real)
     direction = normalize(C.p1 - C.p0)
     atan2(direction[2], direction[1])
 end
+function radialangle(C::LineSegment, s::Real)
+    direction = normalize(C.p1 - C.p0)
+    atan2(-direction[1], direction[2])
+end
 
 curvature(C::LineSegment, s::Real) = 0.
 dcurvature(C::LineSegment, s::Real) = 0.

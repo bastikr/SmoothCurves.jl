@@ -47,6 +47,15 @@ Always between ``-π`` and ``π``.
 tangentangle(C::Curve, s::Real) = error("Not Implemented")
 
 """
+    radialangle(C::Curve, s)
+
+Angle between the radial vector of the curve ``\\mathcal{C}`` at ``s`` and the
+``x``-axis. Always between ``-π`` and ``π``.
+"""
+radialangle(C::Curve, s::Real) = error("Not Implemented")
+
+
+"""
     curvature(C::Curve, s)
 
 Curvature of the Curve ``\\mathcal{C}`` at ``s``.

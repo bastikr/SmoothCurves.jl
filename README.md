@@ -24,6 +24,7 @@ Curve Interface:
 * `length(C, s)`
 * `dlength(C, s)`
 * `tangentangle(C, s)`
+* `radialangle(C, s)`
 * `curvature(C, s)`
 * `dcurvature(C, s)`
 * `point(C, s)`

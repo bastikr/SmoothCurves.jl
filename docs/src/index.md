@@ -20,3 +20,4 @@ Create smooth curves, e.g. usable for mobile robot path following.
 [`curvature`](@ref)\
 [`dcurvature`](@ref)\
 [`tangentangle`](@ref)\
+[`radialangle`](@ref)\

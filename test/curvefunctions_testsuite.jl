@@ -17,6 +17,7 @@ function test_curvefunctions(C::SmoothCurves.Curve)
     length(s) = SmoothCurves.length(C, s)
     dlength(s) = SmoothCurves.dlength(C, s)
     tangentangle(s) = SmoothCurves.tangentangle(C, s)
+    radialangle(s) = SmoothCurves.radialangle(C, s)
     curvature(s) = SmoothCurves.curvature(C, s)
     dcurvature(s) = SmoothCurves.dcurvature(C, s)
 
@@ -32,8 +33,16 @@ function test_curvefunctions(C::SmoothCurves.Curve)
         @test dlength(s) ≈ d_ds(length, s)
 
         # Test tangentangle
-        @test cos(tangentangle(s)) ≈ dpoint(s)[1]/dlength(s) atol=1e-12
-        @test sin(tangentangle(s)) ≈ dpoint(s)[2]/dlength(s) atol=1e-12
+        phi_t = tangentangle(s)
+        @test cos(phi_t) ≈ dpoint(s)[1]/dlength(s) atol=1e-12
+        @test sin(phi_t) ≈ dpoint(s)[2]/dlength(s) atol=1e-12
+
+        # Test radialangle
+        phi_r = radialangle(s)
+        κ = curvature(s)
+        sign_ = κ==0 ? 1 : sign(κ)
+        @test cos(phi_r) ≈ cos(phi_t - sign_*π/2) atol=1e-12
+        @test sin(phi_r) ≈ sin(phi_t - sign_*π/2) atol=1e-12
 
         # Test curvature
         t = dpoint(s)/dlength(s)
