@@ -21,7 +21,7 @@ var documenterSearchIndex = {"docs": [
     "page": "SmoothCurves.jl",
     "title": "Curve Types",
     "category": "section",
-    "text": "Curve\nClothoid\nArcSegment"
+    "text": "Curve\nClothoid\nLineSegment\nArcSegment"
 },
 
 {
@@ -121,6 +121,14 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "api.html#SmoothCurves.LineSegment",
+    "page": "API",
+    "title": "SmoothCurves.LineSegment",
+    "category": "type",
+    "text": "LineSegment(p0, p1)\n\nA line segment starting from p0 and ending at p1. Besides the Curve protocol, also a direction function is implemented, which calculates the unit vector pointing from p0 in direction of p1.\n\n\n\n"
+},
+
+{
     "location": "api.html#SmoothCurves.ArcSegment",
     "page": "API",
     "title": "SmoothCurves.ArcSegment",
@@ -133,7 +141,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API",
     "title": "Curve Types",
     "category": "section",
-    "text": "Curve\nArcSegment\nCurve\nArcSegment"
+    "text": "Curve\nLineSegment\nArcSegment\nCurve\nLineSegment\nArcSegment"
 },
 
 {
@@ -222,6 +230,22 @@ var documenterSearchIndex = {"docs": [
     "title": "Curve specific functions",
     "category": "section",
     "text": ""
+},
+
+{
+    "location": "api.html#SmoothCurves.direction-Tuple{SmoothCurves.LineSegment}",
+    "page": "API",
+    "title": "SmoothCurves.direction",
+    "category": "method",
+    "text": "direction(C::LineSegment)\n\nReturns the unitvector from the start point to the endpoint of the line segment.\n\n\n\n"
+},
+
+{
+    "location": "api.html#API-LineSegment-1",
+    "page": "API",
+    "title": "LineSegment",
+    "category": "section",
+    "text": "direction(C::LineSegment)"
 },
 
 {
