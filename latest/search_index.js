@@ -29,7 +29,7 @@ var documenterSearchIndex = {"docs": [
     "page": "SmoothCurves.jl",
     "title": "Curve Interface",
     "category": "section",
-    "text": "smax\npoint\ndpoint\nlength\ndlength\ncurvature\ndcurvature\ntangentangle\n"
+    "text": "smax\npoint\ndpoint\nlength\ndlength\ncurvature\ndcurvature\ntangentangle\nradialangle\n"
 },
 
 {
@@ -201,11 +201,19 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "api.html#SmoothCurves.radialangle",
+    "page": "API",
+    "title": "SmoothCurves.radialangle",
+    "category": "function",
+    "text": "radialangle(C::Curve, s)\n\nAngle between the radial vector of the curve mathcalC at s and the x-axis. Always between - and .\n\n\n\n"
+},
+
+{
     "location": "api.html#API-Curve-Interface-1",
     "page": "API",
     "title": "Curve Interface",
     "category": "section",
-    "text": "smax\npoint\ndpoint\nlength\ndlength\ncurvature\ndcurvature\ntangentangle\nsmax\npoint\ndpoint\nlength\ndlength\ncurvature\ndcurvature\ntangentangle"
+    "text": "smax\npoint\ndpoint\nlength\ndlength\ncurvature\ndcurvature\ntangentangle\nradialangle\nsmax\npoint\ndpoint\nlength\ndlength\ncurvature\ndcurvature\ntangentangle\nradialangle"
 },
 
 {
