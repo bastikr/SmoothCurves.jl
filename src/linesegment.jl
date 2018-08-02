@@ -2,12 +2,24 @@ import Base: length
 
 using StaticArrays: SVector
 
+"""
+    LineSegment(p0, p1)
 
+A line segment starting from `p0` and ending at `p1`. Besides the Curve
+protocol, also a [`direction`](@ref) function is implemented, which
+calculates the unit vector pointing from `p0` in direction of `p1`.
+"""
 struct LineSegment <: Curve
     p0::SVector{2, Float64}
     p1::SVector{2, Float64}
 end
 
+"""
+    direction(C::LineSegment)
+
+Returns the unitvector from the start point to the endpoint of the
+line segment.
+"""
 direction(C::LineSegment) = normalize(C.p1 - C.p0)
 
 

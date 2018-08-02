@@ -7,10 +7,12 @@ Depth=1
 ## [Curve Types](@id API Curve Types)
 
 [`Curve`](@ref)\
+[`LineSegment`](@ref)\
 [`ArcSegment`](@ref)\
 
 ```@docs
 Curve
+LineSegment
 ArcSegment
 ```
 
@@ -39,6 +41,12 @@ radialangle
 ```
 
 ## Curve specific functions
+
+### [LineSegment](@id API LineSegment)
+
+```@docs
+direction(C::LineSegment)
+```
 
 ### [ArcSegment](@id API ArcSegment)
 
