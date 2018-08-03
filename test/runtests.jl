@@ -3,7 +3,8 @@ names = [
     "test_linesegment.jl",
     "test_arcsegment.jl",
     "test_clothoid.jl",
-    "test_polycurve.jl"
+    "test_polycurve.jl",
+    "test_frenetcoordinates.jl"
 ]
 
 detected_tests = filter(

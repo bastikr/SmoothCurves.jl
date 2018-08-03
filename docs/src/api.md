@@ -76,3 +76,9 @@ SmoothCurves.subcurveindex
 SmoothCurves.subcurveparameter
 SmoothCurves.dispatch
 ```
+
+## [Frenet Frame](@id API Frenet Frame)
+
+```@docs
+frenet.coordinates
+```
