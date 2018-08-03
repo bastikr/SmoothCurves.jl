@@ -9,6 +9,8 @@ function test_curvefunctions(C::SmoothCurves.Curve)
     @test l >= 0
     @test l == SmoothCurves.length(C, SmoothCurves.smax(C))
     @test 0 == SmoothCurves.length(C, 0.)
+    @test SmoothCurves.startpoint(C) == SmoothCurves.point(C, 0)
+    @test SmoothCurves.endpoint(C) == SmoothCurves.point(C, smax(C))
 
     d_ds = central_fdm(3, 1)
 

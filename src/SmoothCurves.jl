@@ -4,7 +4,7 @@ export Curve, LineSegment, ArcSegment, Clothoid, PolyCurve,
        smax, length, dlength,
        tangentangle, radialangle,
        curvature, dcurvature,
-       point, dpoint,
+       point, dpoint, startpoint, endpoint,
        direction
 
 

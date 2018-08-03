@@ -46,3 +46,6 @@ function point(C::LineSegment, s::Real)
     (1-r)*C.p0 + r*C.p1
 end
 dpoint(C::LineSegment, s::Real) = direction(C)
+
+startpoint(C::LineSegment) = C.p0
+endpoint(C::LineSegment) = C.p1

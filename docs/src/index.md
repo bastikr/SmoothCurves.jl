@@ -15,6 +15,8 @@ Create smooth curves, e.g. usable for mobile robot path following.
 
 [`smax`](@ref)\
 [`point`](@ref)\
+[`startpoint`](@ref)\
+[`endpoint`](@ref)\
 [`dpoint`](@ref)\
 [`length`](@ref)\
 [`dlength`](@ref)\

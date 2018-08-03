@@ -28,6 +28,8 @@ Curve Interface:
 * `curvature(C, s)`
 * `dcurvature(C, s)`
 * `point(C, s)`
+* `startpoint(C)`
+* `endpoint(C)`
 * `dpoint(C, s)`
 
 All derivatives are given in respect to the parameter `s`.

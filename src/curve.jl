@@ -84,6 +84,20 @@ Derivative ``\\frac{dC(s)}{ds}`` of the curve ``\\mathcal{C}`` at ``s``. Returns
 """
 dpoint(C::Curve, s::Real) = error("Not Implemented")
 
+"""
+    startpoint(C::Curve)
+
+Return the first point ``C(0)`` of the curve.
+"""
+startpoint(C::Curve) = point(C, 0.)
+
+"""
+    endpoint(C::Curve)
+
+Return the last point ``C(s_\\mathrm{max}`` of the curve.
+"""
+endpoint(C::Curve) = point(C, smax(C))
+
 
 struct Pose
     x::Float64

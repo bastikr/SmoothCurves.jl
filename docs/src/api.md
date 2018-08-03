@@ -24,6 +24,8 @@ PolyCurve
 
 [`smax`](@ref)\
 [`point`](@ref)\
+[`startpoint`](@ref)\
+[`endpoint`](@ref)\
 [`dpoint`](@ref)\
 [`length`](@ref)\
 [`dlength`](@ref)\
@@ -35,6 +37,8 @@ PolyCurve
 ```@docs
 smax
 point
+startpoint
+endpoint
 dpoint
 length
 dlength
