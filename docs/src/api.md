@@ -62,7 +62,7 @@ sign(C::ArcSegment)
 
 ```@docs
 SmoothCurves.Fresnel
-SmoothCurves.l
+SmoothCurves.standardlength
 ```
 
 ### [PolyCurve](@id API PolyCurve)
