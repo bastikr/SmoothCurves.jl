@@ -29,7 +29,7 @@ var documenterSearchIndex = {"docs": [
     "page": "SmoothCurves.jl",
     "title": "Curve Interface",
     "category": "section",
-    "text": "smax\npoint\ndpoint\nlength\ndlength\ncurvature\ndcurvature\ntangentangle\nradialangle\n"
+    "text": "smax\npoint\nstartpoint\nendpoint\ndpoint\nlength\ndlength\ncurvature\ndcurvature\ntangentangle\nradialangle\n"
 },
 
 {
@@ -201,6 +201,22 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "api.html#SmoothCurves.startpoint",
+    "page": "API",
+    "title": "SmoothCurves.startpoint",
+    "category": "function",
+    "text": "startpoint(C::Curve)\n\nReturn the first point C(0) of the curve.\n\n\n\n"
+},
+
+{
+    "location": "api.html#SmoothCurves.endpoint",
+    "page": "API",
+    "title": "SmoothCurves.endpoint",
+    "category": "function",
+    "text": "endpoint(C::Curve)\n\nReturn the last point C(s_mathrmmax of the curve.\n\n\n\n"
+},
+
+{
     "location": "api.html#SmoothCurves.dpoint",
     "page": "API",
     "title": "SmoothCurves.dpoint",
@@ -261,7 +277,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API",
     "title": "Curve Interface",
     "category": "section",
-    "text": "smax\npoint\ndpoint\nlength\ndlength\ncurvature\ndcurvature\ntangentangle\nradialangle\nsmax\npoint\ndpoint\nlength\ndlength\ncurvature\ndcurvature\ntangentangle\nradialangle"
+    "text": "smax\npoint\nstartpoint\nendpoint\ndpoint\nlength\ndlength\ncurvature\ndcurvature\ntangentangle\nradialangle\nsmax\npoint\nstartpoint\nendpoint\ndpoint\nlength\ndlength\ncurvature\ndcurvature\ntangentangle\nradialangle"
 },
 
 {
