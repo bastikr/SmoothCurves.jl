@@ -105,9 +105,10 @@ struct Pose
     phi::Float64
 end
 
-function pose(C::Curve, l::Float64)
-    x, y = point(C, l)
-    phi = tangentangle(C, l)
+function pose(C::Curve, l::Number)
+    l_ = convert(Float64, l)
+    x, y = point(C, l_)
+    phi = tangentangle(C, l_)
     return Pose(x, y, phi)
 end
 
