@@ -97,6 +97,30 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "polycurve.html#",
+    "page": "PolyCurve",
+    "title": "PolyCurve",
+    "category": "page",
+    "text": ""
+},
+
+{
+    "location": "polycurve.html#PolyCurve-1",
+    "page": "PolyCurve",
+    "title": "PolyCurve",
+    "category": "section",
+    "text": ""
+},
+
+{
+    "location": "polycurve.html#Additional-Functions-1",
+    "page": "PolyCurve",
+    "title": "Additional Functions",
+    "category": "section",
+    "text": "SmoothCurves.subcurveindex\nSmoothCurves.subcurveparameter\nSmoothCurves.dispatch\n"
+},
+
+{
     "location": "api.html#",
     "page": "API",
     "title": "API",
@@ -137,11 +161,19 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "api.html#SmoothCurves.PolyCurve",
+    "page": "API",
+    "title": "SmoothCurves.PolyCurve",
+    "category": "type",
+    "text": "PolyCurve(curves...)\n\nCollection of curves joined at their start and endpoints.\n\n\n\n"
+},
+
+{
     "location": "api.html#API-Curve-Types-1",
     "page": "API",
     "title": "Curve Types",
     "category": "section",
-    "text": "Curve\nLineSegment\nArcSegment\nCurve\nLineSegment\nArcSegment"
+    "text": "Curve\nLineSegment\nArcSegment\nPolyCurveCurve\nLineSegment\nArcSegment\nPolyCurve"
 },
 
 {
@@ -262,6 +294,38 @@ var documenterSearchIndex = {"docs": [
     "title": "ArcSegment",
     "category": "section",
     "text": "sign(C::ArcSegment)"
+},
+
+{
+    "location": "api.html#SmoothCurves.subcurveindex",
+    "page": "API",
+    "title": "SmoothCurves.subcurveindex",
+    "category": "function",
+    "text": "subcurveindex(C::PolyCurve, s)\n\nIndex of the subcurve reached at the given parameter s.\n\n\n\n"
+},
+
+{
+    "location": "api.html#SmoothCurves.subcurveparameter",
+    "page": "API",
+    "title": "SmoothCurves.subcurveparameter",
+    "category": "function",
+    "text": "subcurveparameter(C::PolyCurve, s)\n\nParameter s_i for which C(s)=C_i(s_i)\n\n\n\n"
+},
+
+{
+    "location": "api.html#SmoothCurves.dispatch",
+    "page": "API",
+    "title": "SmoothCurves.dispatch",
+    "category": "function",
+    "text": "dispatch(f, C::PolyCurve, s::Real)\n\nApply function f to appropriate subcurve i.e. f(C_i s_i).\n\n\n\n"
+},
+
+{
+    "location": "api.html#API-PolyCurve-1",
+    "page": "API",
+    "title": "PolyCurve",
+    "category": "section",
+    "text": "SmoothCurves.subcurveindex\nSmoothCurves.subcurveparameter\nSmoothCurves.dispatch"
 },
 
 ]}
