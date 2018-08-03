@@ -161,6 +161,14 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "api.html#SmoothCurves.Clothoid",
+    "page": "API",
+    "title": "SmoothCurves.Clothoid",
+    "category": "type",
+    "text": "Clothoid(origin, shift, rotation, λ, l0, l1)\n\nDescribes a clothoid which in standard orientation.\n\nIt is here defined as\n\nx(s) = int_0^s cos( t^2) mathrmdt\n\ny(s) = int_0^s sin( t^2) mathrmdt\n\nfor parameter s  l0 l1. (Note that l1 may also be smaller to l0). It is placed at origin, shifted along the x-axis and rotated around the origin by the given angle.\n\n\n\n"
+},
+
+{
     "location": "api.html#SmoothCurves.PolyCurve",
     "page": "API",
     "title": "SmoothCurves.PolyCurve",
@@ -173,7 +181,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API",
     "title": "Curve Types",
     "category": "section",
-    "text": "Curve\nLineSegment\nArcSegment\nPolyCurveCurve\nLineSegment\nArcSegment\nPolyCurve"
+    "text": "Curve\nLineSegment\nArcSegment\nClothoid\nPolyCurve\nCurve\nLineSegment\nArcSegment\nClothoid\nPolyCurve"
 },
 
 {
@@ -294,6 +302,30 @@ var documenterSearchIndex = {"docs": [
     "title": "ArcSegment",
     "category": "section",
     "text": "sign(C::ArcSegment)"
+},
+
+{
+    "location": "api.html#SmoothCurves.Fresnel",
+    "page": "API",
+    "title": "SmoothCurves.Fresnel",
+    "category": "function",
+    "text": "Fresnel(λ, s)\n\nSolve the generalized Fresnel integrals\n\nx(s) = int_0^s cos( t^2) mathrmdt\n\ny(s) = int_0^s sin( t^2) mathrmdt\n\n\n\n"
+},
+
+{
+    "location": "api.html#SmoothCurves.l",
+    "page": "API",
+    "title": "SmoothCurves.l",
+    "category": "function",
+    "text": "l(C::Clothoid, s)\n\nSigned distance to the origin of the Clothoid.\n\n\n\n"
+},
+
+{
+    "location": "api.html#API-Clothoid-1",
+    "page": "API",
+    "title": "Clothoid",
+    "category": "section",
+    "text": "SmoothCurves.Fresnel\nSmoothCurves.l"
 },
 
 {
