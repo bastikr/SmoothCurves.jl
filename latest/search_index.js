@@ -121,6 +121,30 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "frenetframe.html#",
+    "page": "Frenet Frame",
+    "title": "Frenet Frame",
+    "category": "page",
+    "text": ""
+},
+
+{
+    "location": "frenetframe.html#Frenet-Frame-1",
+    "page": "Frenet Frame",
+    "title": "Frenet Frame",
+    "category": "section",
+    "text": ""
+},
+
+{
+    "location": "frenetframe.html#Functions-1",
+    "page": "Frenet Frame",
+    "title": "Functions",
+    "category": "section",
+    "text": "[frenet.coordinates]"
+},
+
+{
     "location": "api.html#",
     "page": "API",
     "title": "API",
@@ -374,6 +398,22 @@ var documenterSearchIndex = {"docs": [
     "title": "PolyCurve",
     "category": "section",
     "text": "SmoothCurves.subcurveindex\nSmoothCurves.subcurveparameter\nSmoothCurves.dispatch"
+},
+
+{
+    "location": "api.html#SmoothCurves.frenet.coordinates",
+    "page": "API",
+    "title": "SmoothCurves.frenet.coordinates",
+    "category": "function",
+    "text": "frenet.coordinates(p0::Pose, p::Pose)\n\nCoordinates of p in the Frenet frame defined by p0.\n\n\n\nfrenet.coordinates(C::Curve, s, p::Pose)\n\nCoordinates of p in the Frenet frame at C(s).\n\n\n\n"
+},
+
+{
+    "location": "api.html#API-Frenet-Frame-1",
+    "page": "API",
+    "title": "Frenet Frame",
+    "category": "section",
+    "text": "frenet.coordinates"
 },
 
 ]}
