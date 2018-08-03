@@ -11,6 +11,7 @@ makedocs(
         "index.md",
         "clothoid.md",
         "arcsegment.md",
+        "polycurve.md",
         "API" => "api.md"
     ]
 )

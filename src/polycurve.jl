@@ -1,6 +1,11 @@
 import Base: length
 
 
+"""
+    PolyCurve(curves...)
+
+Collection of curves joined at their start and endpoints.
+"""
 struct PolyCurve <: Curve
     curves::Vector
     cum_s::Vector{Float64}
@@ -11,6 +16,11 @@ struct PolyCurve <: Curve
     end
 end
 
+"""
+    subcurveindex(C::PolyCurve, s)
+
+Index of the subcurve reached at the given parameter `s`.
+"""
 function subcurveindex(C::PolyCurve, s::Float64)
     if s>C.cum_s[end]
         return length(C.curves)
@@ -19,8 +29,19 @@ function subcurveindex(C::PolyCurve, s::Float64)
 end
 
 subcurveparameter(C::PolyCurve, s::Float64, index::Int64) = index==1 ? s : s - C.cum_s[index-1]
+
+"""
+    subcurveparameter(C::PolyCurve, s)
+
+Parameter ``s_i`` for which ``C(s)=C_i(s_i)``
+"""
 subcurveparameter(C::PolyCurve, s::Float64) = subcurveparameter(C, s, subcurveindex(C, s))
 
+"""
+    dispatch(f, C::PolyCurve, s::Real)
+
+Apply function `f` to appropriate subcurve i.e. ``f(C_i, s_i)``.
+"""
 function dispatch(f, C::PolyCurve, s::Real)
     s_ = convert(Float64, s)
     i = subcurveindex(C, s_)
@@ -28,6 +49,12 @@ function dispatch(f, C::PolyCurve, s::Real)
     f(C.curves[i], s_i)
 end
 
+
+# Implement curve interface
+
+smax(C::PolyCurve) = C.cum_s[end]
+point(C::PolyCurve, s::Real) = dispatch(point, C, s)
+dpoint(C::PolyCurve, s::Real) = dispatch(dpoint, C, s)
 function length(C::PolyCurve, s::Real)
     s_ = convert(Float64, s)
     i = subcurveindex(C, s_)
@@ -38,10 +65,6 @@ function length(C::PolyCurve, s::Real)
     s_i = subcurveparameter(C, s_, i)
     l + length(C.curves[i], s_i)
 end
-
-smax(C::PolyCurve) = C.cum_s[end]
-point(C::PolyCurve, s::Real) = dispatch(point, C, s)
-dpoint(C::PolyCurve, s::Real) = dispatch(dpoint, C, s)
 dlength(C::PolyCurve, s::Real) = dispatch(dlength, C, s)
 tangentangle(C::PolyCurve, s::Real) = dispatch(tangentangle, C, s)
 radialangle(C::PolyCurve, s::Real) = dispatch(radialangle, C, s)

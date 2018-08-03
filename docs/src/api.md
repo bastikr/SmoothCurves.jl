@@ -9,11 +9,13 @@ Depth=1
 [`Curve`](@ref)\
 [`LineSegment`](@ref)\
 [`ArcSegment`](@ref)\
+[`PolyCurve`](@ref)
 
 ```@docs
 Curve
 LineSegment
 ArcSegment
+PolyCurve
 ```
 
 ## [Curve Interface](@id API Curve Interface)
@@ -52,4 +54,12 @@ direction(C::LineSegment)
 
 ```@docs
 sign(C::ArcSegment)
+```
+
+### [PolyCurve](@id API PolyCurve)
+
+```@docs
+SmoothCurves.subcurveindex
+SmoothCurves.subcurveparameter
+SmoothCurves.dispatch
 ```
