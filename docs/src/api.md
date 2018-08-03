@@ -9,12 +9,14 @@ Depth=1
 [`Curve`](@ref)\
 [`LineSegment`](@ref)\
 [`ArcSegment`](@ref)\
-[`PolyCurve`](@ref)
+[`Clothoid`](@ref)\
+[`PolyCurve`](@ref)\
 
 ```@docs
 Curve
 LineSegment
 ArcSegment
+Clothoid
 PolyCurve
 ```
 
@@ -54,6 +56,13 @@ direction(C::LineSegment)
 
 ```@docs
 sign(C::ArcSegment)
+```
+
+### [Clothoid](@id API Clothoid)
+
+```@docs
+SmoothCurves.Fresnel
+SmoothCurves.l
 ```
 
 ### [PolyCurve](@id API PolyCurve)

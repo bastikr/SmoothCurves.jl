@@ -3,7 +3,23 @@ import Base: length
 using QuadGK
 using StaticArrays: SVector
 
+doc"""
+    Clothoid(origin, shift, rotation, λ, l0, l1)
 
+Describes a clothoid which in standard orientation.
+
+It is here defined as
+
+```math
+x(s) = \int_0^s \cos(λ t^2) \mathrm{d}t
+\\
+y(s) = \int_0^s \sin(λ t^2) \mathrm{d}t
+```
+
+for parameter ``s ∈ [l0, l1]``. (Note that `l1` may also be smaller to `l0`).
+It is placed at `origin`, shifted along the x-axis and rotated around the `origin` by
+the given angle.
+"""
 struct Clothoid <: Curve
     origin::SVector{2, Float64}
     shift::Float64
@@ -15,8 +31,24 @@ end
 
 
 # Clothoid specific functions
+"""
+    l(C::Clothoid, s)
+
+Signed distance to the origin of the Clothoid.
+"""
 l(C::Clothoid, s::Real) = C.l0 + s
 
+doc"""
+    Fresnel(λ, s)
+
+Solve the generalized Fresnel integrals
+
+```math
+x(s) = \int_0^s \cos(λ t^2) \mathrm{d}t
+\\
+y(s) = \int_0^s \sin(λ t^2) \mathrm{d}t
+```
+"""
 function Fresnel(λ::Real, s::Real)
     λ_ = convert(Float64, λ)
     s_ = convert(Float64, s)
