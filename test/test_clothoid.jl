@@ -11,8 +11,8 @@ function Fsin(λ::Float64, s::Float64)
 end
 
 for λ in -5:0.5:5
-    @test SmoothCurves.Fresnel(λ, 2.)[1] ≈ Fcos(λ, 2.)
-    @test SmoothCurves.Fresnel(λ, 2.)[2] ≈ Fsin(λ, 2.)
+    @test SmoothCurves.fresnel(λ, 2.)[1] ≈ Fcos(λ, 2.)
+    @test SmoothCurves.fresnel(λ, 2.)[2] ≈ Fsin(λ, 2.)
 end
 
 include("curvefunctions_testsuite.jl")

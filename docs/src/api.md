@@ -61,7 +61,7 @@ sign(C::ArcSegment)
 ### [Clothoid](@id API Clothoid)
 
 ```@docs
-SmoothCurves.Fresnel
+SmoothCurves.fresnel
 SmoothCurves.standardlength
 ```
 

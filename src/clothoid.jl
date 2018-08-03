@@ -39,7 +39,7 @@ Signed distance to the origin of the Clothoid.
 standardlength(C::Clothoid, s::Real) = C.l0 + s
 
 doc"""
-    Fresnel(λ, s)
+    fresnel(λ, s)
 
 Solve the generalized Fresnel integrals
 
@@ -49,7 +49,7 @@ x(s) = \int_0^s \cos(λ t^2) \mathrm{d}t
 y(s) = \int_0^s \sin(λ t^2) \mathrm{d}t
 ```
 """
-function Fresnel(λ::Real, s::Real)
+function fresnel(λ::Real, s::Real)
     λ_ = convert(Float64, λ)
     s_ = convert(Float64, s)
     function f(x::Float64)
@@ -81,7 +81,7 @@ curvature(C::Clothoid, s::Real) = 2*C.λ*standardlength(C, s)
 dcurvature(C::Clothoid, s::Real) = 2*C.λ
 
 function point(C::Clothoid, s::Real)
-    p = Fresnel(C.λ, standardlength(C, s))::SVector{2, Float64}
+    p = fresnel(C.λ, standardlength(C, s))::SVector{2, Float64}
     p_r = rotate2d(C.rotation, p[1] - C.shift, p[2])::SVector{2, Float64}
     return p_r + C.origin
 end

@@ -7,7 +7,7 @@ function construct_clothoids(λ::Real, p0, v0, v1)
     phi0 = deviation(v0_, [1, 0])
     phi1 = deviation(v1_, [1, 0])
     lmax = smax_from_deviation(λ, abs(dphi))
-    xmax, ymax = Fresnel(λ, lmax)
+    xmax, ymax = fresnel(λ, lmax)
 
     shift = xmax + ymax*tan(abs(dphi)/2)
     C0 = Clothoid(p0, shift, -phi0, sign(dphi)*λ, 0., lmax)
@@ -27,14 +27,14 @@ function construct_clothoids2(dmax::Real, p0, p1, p2)
     phi1 = deviation(v1_, [1, 0])
 
     θ = abs(dphi/2)
-    Fcos, Fsin = Fresnel(1., sqrt(θ))
+    Fcos, Fsin = fresnel(1., sqrt(θ))
     g = cos(θ)*sqrt(θ)/Fsin
     d = sin(2*θ)^(3./2)
 
     smax = dmax*d*g
     λ = θ/smax^2
 
-    xmax, ymax = Fresnel(λ, smax)
+    xmax, ymax = fresnel(λ, smax)
 
     shift = xmax + ymax*tan(abs(dphi)/2)
     C0 = Clothoid(p1, shift, -phi0, sign(dphi)*λ, 0., smax)
@@ -59,7 +59,7 @@ function construct_clothoids3(dmax::Real, p0, p1, p2)
 
     maxshift = min(norm(v0), norm(v1))
     θ = abs(Δφ/2)
-    Fcos, Fsin = Fresnel(1., sqrt(θ))
+    Fcos, Fsin = fresnel(1., sqrt(θ))
 
     ν = sin(θ) + cos(θ)*Fcos/Fsin
     dmax_shift = maxshift/ν
