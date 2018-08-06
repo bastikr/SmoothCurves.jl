@@ -28,7 +28,7 @@ C = PolyCurve(C_l0, C_l1, C_l2)
 end
 
 C_arc = ArcSegment([1, 3], 2., 0., π)
-C = SmoothCurves.construct_curve2(0.5, [-1, 3], [-1, -6], [1, -6])
+C = SmoothCurves.construction.curve(0.5, [[-1, 3], [-1, -6], [1, -6]])
 C = PolyCurve(C_arc, C.curves...)
 
 test_curvefunctions(C)

@@ -6,7 +6,8 @@ export Curve, Pose, LineSegment, ArcSegment, Clothoid, PolyCurve,
        curvature, dcurvature,
        point, dpoint, startpoint, endpoint,
        direction,
-       frenet
+       frenet,
+       construction
 
 
 include("curve.jl")

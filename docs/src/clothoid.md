@@ -8,8 +8,8 @@ using Plots # hide
 dmax = 1.5 # hide
 p0 = [-6, 0] # hide
 p1 = [0.0, 0.0] # hide
-p2 = [2, 5] # hide
-C = SmoothCurves.construct_curve2(dmax, p0, p1, p2) # hide
+p2 = 6*normalize([2, 5]) # hide
+C = SmoothCurves.construction.clothoidcorner(dmax, p0, p1, p2) # hide
 n0 = normalize([-(p1[2] - p0[2]), (p1[1] - p0[1])]) # hide
 
 λ = C.curves[2].λ # hide
@@ -26,9 +26,9 @@ plt = plot(ticks=false, border=false, axis=false) # hide
 
 # Plot clothoids # hide
 plot!(C, lc=1, lw=2) # hide
-p_begin = point(C.curves[2], 0) # hide
-p_split = point(C.curves[3], 0) # hide
-p_end = point(C.curves[4], 0) # hide
+p_begin = startpoint(C) # hide
+p_split = startpoint(C.curves[2]) # hide
+p_end = endpoint(C) # hide
 scatter!([p_begin[1], p_split[1], p_end[1]], [p_begin[2], p_split[2], p_end[2]], # hide
         color=1, label="") # hide
 
@@ -44,12 +44,12 @@ annotate!(p_annotate..., text("\\Delta x", 8, :center)) # hide
 p_annotate = p1 - 0.5*δ*direction(C_l0) - 0.2*n0 # hide
 annotate!(p_annotate..., text("\\delta", 8, :center)) # hide
 
-l = length(C_l1)*dot(direction(C_l0), direction(C_l1)) #hide
+l = length(C_l1)*dot(direction(C_l0), direction(C_l1))
 C_l0_extension = LineSegment(p1, l*direction(C_l0)) # hide
 plot!(C_l0_extension, lc=:black, ls=:dash) # hide
 
 # Plot normal to first line # hide
-p_ = p1 - δ*direction(C_l0) # hide
+p_ = p1 - δ*direction(C_l0)
 C_l0_normal = LineSegment(p_, p_ + Δy*n0) # hide
 plot!(C_l0_normal, lc=:black, ls=:solid) # hide
 p_annotate = point(C_l0_normal, 0) - 0.2*direction(C_l0) + 0.5*n0*length(C_l0_normal) # hide
