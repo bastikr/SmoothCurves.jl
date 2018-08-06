@@ -1,5 +1,6 @@
 
 names = [
+    "test_curve.jl",
     "test_linesegment.jl",
     "test_arcsegment.jl",
     "test_clothoid.jl",
