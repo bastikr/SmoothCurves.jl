@@ -2,42 +2,42 @@
 <html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>SmoothCurves.jl · SmoothCurves.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="assets/documenter.js"></script><script src="siteinfo.js"></script><script src="../versions.js"></script><link href="assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>SmoothCurves.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="search.html"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li class="current"><a class="toctext" href="index.html">SmoothCurves.jl</a><ul class="internal"><li><a class="toctext" href="#Curve-Types-1">Curve Types</a></li><li><a class="toctext" href="#Curve-Interface-1">Curve Interface</a></li></ul></li><li><a class="toctext" href="clothoid.html">Clothoid</a></li><li><a class="toctext" href="arcsegment.html">ArcSegment</a></li><li><a class="toctext" href="polycurve.html">PolyCurve</a></li><li><a class="toctext" href="frenetframe.html">Frenet Frame</a></li><li><a class="toctext" href="construction.html">Construction</a></li><li><a class="toctext" href="api.html">API</a></li></ul></nav><article id="docs"><header><nav><ul><li><a href="index.html">SmoothCurves.jl</a></li></ul><a class="edit-page" href="https://github.com/bastikr/SmoothCurves.jl/blob/master/docs/src/index.md"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>SmoothCurves.jl</span><a class="fa fa-bars" href="#"></a></div></header><h1><a class="nav-anchor" id="SmoothCurves.jl-1" href="#SmoothCurves.jl-1">SmoothCurves.jl</a></h1><p>Create smooth curves, e.g. usable for mobile robot path following.</p><div><?xml version="1.0" encoding="utf-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="600" height="400" viewBox="0 0 600 400">
 <defs>
-  <clipPath id="clip0600">
+  <clipPath id="clip5900">
     <rect x="0" y="0" width="600" height="400"/>
   </clipPath>
 </defs>
-<polygon clip-path="url(#clip0600)" points="
+<polygon clip-path="url(#clip5900)" points="
 0,400 600,400 600,0 0,0 
   " fill="#ffffff" fill-opacity="1"/>
 <defs>
-  <clipPath id="clip0601">
+  <clipPath id="clip5901">
     <rect x="120" y="0" width="421" height="400"/>
   </clipPath>
 </defs>
-<polygon clip-path="url(#clip0600)" points="
+<polygon clip-path="url(#clip5900)" points="
 23.622,371.998 580.315,371.998 580.315,24.065 23.622,24.065 
   " fill="#ffffff" fill-opacity="1"/>
 <defs>
-  <clipPath id="clip0602">
+  <clipPath id="clip5902">
     <rect x="23" y="24" width="558" height="349"/>
   </clipPath>
 </defs>
-<circle clip-path="url(#clip0602)" style="fill:#000000; stroke:none; fill-opacity:1" cx="39.3775" cy="230.855" r="4"/>
-<circle clip-path="url(#clip0602)" style="fill:#009af9; stroke:none; fill-opacity:1" cx="39.3775" cy="230.855" r="3"/>
-<circle clip-path="url(#clip0602)" style="fill:#000000; stroke:none; fill-opacity:1" cx="301.969" cy="230.855" r="4"/>
-<circle clip-path="url(#clip0602)" style="fill:#009af9; stroke:none; fill-opacity:1" cx="301.969" cy="230.855" r="3"/>
-<circle clip-path="url(#clip0602)" style="fill:#000000; stroke:none; fill-opacity:1" cx="170.673" cy="99.5599" r="4"/>
-<circle clip-path="url(#clip0602)" style="fill:#009af9; stroke:none; fill-opacity:1" cx="170.673" cy="99.5599" r="3"/>
-<circle clip-path="url(#clip0602)" style="fill:#000000; stroke:none; fill-opacity:1" cx="498.912" cy="33.9121" r="4"/>
-<circle clip-path="url(#clip0602)" style="fill:#009af9; stroke:none; fill-opacity:1" cx="498.912" cy="33.9121" r="3"/>
-<circle clip-path="url(#clip0602)" style="fill:#000000; stroke:none; fill-opacity:1" cx="564.56" cy="165.208" r="4"/>
-<circle clip-path="url(#clip0602)" style="fill:#009af9; stroke:none; fill-opacity:1" cx="564.56" cy="165.208" r="3"/>
-<circle clip-path="url(#clip0602)" style="fill:#000000; stroke:none; fill-opacity:1" cx="433.264" cy="362.151" r="4"/>
-<circle clip-path="url(#clip0602)" style="fill:#009af9; stroke:none; fill-opacity:1" cx="433.264" cy="362.151" r="3"/>
-<polyline clip-path="url(#clip0602)" style="stroke:#000000; stroke-width:1; stroke-opacity:0.3; fill:none" stroke-dasharray="8, 5" points="
+<circle clip-path="url(#clip5902)" style="fill:#000000; stroke:none; fill-opacity:1" cx="39.3775" cy="230.855" r="4"/>
+<circle clip-path="url(#clip5902)" style="fill:#009af9; stroke:none; fill-opacity:1" cx="39.3775" cy="230.855" r="3"/>
+<circle clip-path="url(#clip5902)" style="fill:#000000; stroke:none; fill-opacity:1" cx="301.969" cy="230.855" r="4"/>
+<circle clip-path="url(#clip5902)" style="fill:#009af9; stroke:none; fill-opacity:1" cx="301.969" cy="230.855" r="3"/>
+<circle clip-path="url(#clip5902)" style="fill:#000000; stroke:none; fill-opacity:1" cx="170.673" cy="99.5599" r="4"/>
+<circle clip-path="url(#clip5902)" style="fill:#009af9; stroke:none; fill-opacity:1" cx="170.673" cy="99.5599" r="3"/>
+<circle clip-path="url(#clip5902)" style="fill:#000000; stroke:none; fill-opacity:1" cx="498.912" cy="33.9121" r="4"/>
+<circle clip-path="url(#clip5902)" style="fill:#009af9; stroke:none; fill-opacity:1" cx="498.912" cy="33.9121" r="3"/>
+<circle clip-path="url(#clip5902)" style="fill:#000000; stroke:none; fill-opacity:1" cx="564.56" cy="165.208" r="4"/>
+<circle clip-path="url(#clip5902)" style="fill:#009af9; stroke:none; fill-opacity:1" cx="564.56" cy="165.208" r="3"/>
+<circle clip-path="url(#clip5902)" style="fill:#000000; stroke:none; fill-opacity:1" cx="433.264" cy="362.151" r="4"/>
+<circle clip-path="url(#clip5902)" style="fill:#009af9; stroke:none; fill-opacity:1" cx="433.264" cy="362.151" r="3"/>
+<polyline clip-path="url(#clip5902)" style="stroke:#000000; stroke-width:1; stroke-opacity:0.3; fill:none" stroke-dasharray="8, 5" points="
   39.3775,230.855 301.969,230.855 170.673,99.5599 498.912,33.9121 564.56,165.208 433.264,362.151 
   "/>
-<polyline clip-path="url(#clip0602)" style="stroke:#009af9; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip5902)" style="stroke:#009af9; stroke-width:1; stroke-opacity:1; fill:none" points="
   39.3775,230.855 45.972,230.855 52.5665,230.855 59.161,230.855 65.7555,230.855 72.35,230.855 78.9446,230.855 85.5391,230.855 92.1336,230.855 98.7281,230.855 
   105.323,230.855 111.917,230.855 118.512,230.855 125.106,230.855 131.701,230.855 138.295,230.855 144.89,230.855 151.484,230.855 158.079,230.855 164.673,230.855 
   171.268,230.855 177.862,230.855 184.457,230.855 191.051,230.855 197.646,230.855 204.24,230.855 210.835,230.855 217.429,230.855 224.024,230.855 230.618,230.855 
