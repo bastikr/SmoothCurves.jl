@@ -13,7 +13,7 @@ var documenterSearchIndex = {"docs": [
     "page": "SmoothCurves.jl",
     "title": "SmoothCurves.jl",
     "category": "section",
-    "text": "Create smooth curves, e.g. usable for mobile robot path following."
+    "text": "Create smooth curves, e.g. usable for mobile robot path following.using SmoothCurves # hide\nusing Plots # hide\n\n# Define Polygon points # hide\npoints = [ # hide\n    [0, 0], # hide\n    [4, 0], # hide\n    [2, 2], # hide\n    [7, 3], # hide\n    [8, 1], # hide\n    [6, -2] # hide\n] # hide\n\n# Construct curve consisting of line segments and clothoids # hide\ndmax = 0.5 # hide\nC1 = construction.curve(dmax, points) # hide\n\n# Plot Polygon points # hide\nx = [p[1] for p in points] # hide\ny = [p[2] for p in points] # hide\nscatter(x, y, label=\"\") # hide\nplot!(x, y, label=\"\", ls=:dash, color=:black, alpha=0.3) # hide\n\n# Plot curve # hide\nplot!(C1, lc=1) # hide\n\nplot!(axis=false, grid=false) # hide\nsavefig(\"demoplot.svg\") # hide\nplot!() # hide"
 },
 
 {
@@ -142,6 +142,22 @@ var documenterSearchIndex = {"docs": [
     "title": "Functions",
     "category": "section",
     "text": "[frenet.coordinates]"
+},
+
+{
+    "location": "construction.html#",
+    "page": "Construction",
+    "title": "Construction",
+    "category": "page",
+    "text": ""
+},
+
+{
+    "location": "construction.html#Construction-1",
+    "page": "Construction",
+    "title": "Construction",
+    "category": "section",
+    "text": "using SmoothCurves\nusing Plots\n\n# Define Polygon points\npoints = [\n    [0, 0],\n    [4, 0],\n    [2, 2],\n    [7, 3],\n    [8, 1],\n    [6, -2]\n]\n\n# Construct curve consisting of line segments and clothoids\ndmax = 0.5\nC1 = construction.curve(dmax, points)\n\n# Plot Polygon points\nx = [p[1] for p in points]\ny = [p[2] for p in points]\nscatter(x, y, label=\"\")\nplot!(x, y, label=\"\", ls=:dash, color=:black, alpha=0.3)\n\n# Plot curve\nplot!(C1, lc=1)"
 },
 
 {
