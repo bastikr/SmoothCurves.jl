@@ -13,6 +13,7 @@ makedocs(
         "arcsegment.md",
         "polycurve.md",
         "frenetframe.md",
+        "construction.md",
         "API" => "api.md"
     ]
 )
