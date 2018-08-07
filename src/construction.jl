@@ -54,11 +54,7 @@ function curve(dmax, points)
     for i=1:length(points)-2
         p0 = p2_
         p1 = points[i+1]
-        if (i+2>length(points))
-            p2 = points[end]
-        else
-            p2 = 0.5*(points[i+1] + points[i+2])
-        end
+        p2 = 0.5*(points[i+1] + points[i+2])
         C = clothoidcorner(dmax, p0, p1, p2)
         p0_ = point(C, 0)
         if norm(p0_ - p0) > 1e-12
