@@ -1,14 +1,13 @@
 import Base: length
 
-
 using StaticArrays
+
 
 """
 Abstract base class for all specialized curve types.
 """
 abstract type Curve end
 
-Point = StaticArrays.SVector
 
 """
     smax(C::Curve)
@@ -111,10 +110,3 @@ function pose(C::Curve, l::Number)
     phi = tangentangle(C, l_)
     return Pose(x, y, phi)
 end
-
-x(p::Point) = p[1]
-y(p::Point) = p[2]
-
-x(p::Pose) = p.x
-y(p::Pose) = p.y
-phi(p::Pose) = p.phi

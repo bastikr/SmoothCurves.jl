@@ -28,5 +28,5 @@ end
     n = round(length(curve)/spacing, RoundUp)
     svec = linspace(0., smax(curve), n)
     points = point.(curve, svec)
-    x.(points), y.(points)
+    [p[1] for p in points], [p[2] for p in points]
 end
