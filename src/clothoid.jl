@@ -59,10 +59,6 @@ function fresnel(λ::Real, s::Real)
     QuadGK.quadgk(f, 0., s_)[1]::SVector{2, Float64}
 end
 
-function smax_from_deviation(λ, dphi)
-    sqrt(abs(dphi/(2*λ)))
-end
-
 
 # Implement Curve interface
 smax(C::Clothoid) = C.l1 - C.l0
