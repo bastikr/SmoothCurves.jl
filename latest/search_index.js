@@ -2,34 +2,114 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "index.html#",
-    "page": "SmoothCurves.jl",
-    "title": "SmoothCurves.jl",
+    "page": "Introduction",
+    "title": "Introduction",
     "category": "page",
     "text": ""
 },
 
 {
     "location": "index.html#SmoothCurves.jl-1",
-    "page": "SmoothCurves.jl",
+    "page": "Introduction",
     "title": "SmoothCurves.jl",
     "category": "section",
-    "text": "Create parameterized smooth curves, e.g. usable for mobile robot path following.using SmoothCurves # hide\nusing Plots # hide\n\n# Define Polygon points # hide\npoints = [ # hide\n    [0, 0], # hide\n    [4, 0], # hide\n    [2, 2], # hide\n    [7, 3], # hide\n    [8, 1], # hide\n    [6, -2] # hide\n] # hide\n\n# Construct curve consisting of line segments and clothoids # hide\ndmax = 0.5 # hide\nC = construction.curve(dmax, points) # hide\n\n# Plot Polygon points # hide\nx = [p[1] for p in points] # hide\ny = [p[2] for p in points] # hide\nscatter(x, y, label=\"\") # hide\nplot!(x, y, label=\"\", ls=:dash, color=:black, alpha=0.3) # hide\n\n# Plot curve # hide\nplot!(C, lc=1) # hide\n\nplot!(axis=false, grid=false) # hide\nsavefig(\"demoplot.svg\") # hide\nplot!() # hideBesides the x(s) y(s) coordinates, many other quantities are available:svec = [0:0.01:smax(C);] # hide\n\nϕ = tangentangle.(C, svec) # hide\np0 = plot(svec, ϕ, xlabel=\"s\", ylabel=\"tangentangle\", label=\"\") # hide\n\nθ = radialangle.(C, svec) # hide\np1 = plot(svec, θ, xlabel=\"s\", ylabel=\"radialangle\", label=\"\") # hide\n\nκ = curvature.(C, svec) # hide\np2 = plot(svec, κ, xlabel=\"s\", ylabel=\"curvature\", label=\"\") # hide\n\ndκ = dcurvature.(C, svec) # hide\np3 = plot(svec, dκ, xlabel=\"s\", ylabel=\"dcurvature\", label=\"\") # hide\n\nplot(p0, p1, p2, p3, layout=(2, 2)) # hide"
+    "text": "Create parameterized smooth curves, e.g. usable for mobile robot path following.This library provides a few elementary curve types,Clothoid\nLineSegment\nArcSegmentand the possibility to chain them together as PolyCurve. All curves implement the Curve interface:smax\npoint\nstartpoint\nendpoint\ndpoint\nlength\ndlength\ncurvature\ndcurvature\ntangentangle\nradialangleAdditionally, Construction methods which generate smooth curves from given polygon paths are provided.using SmoothCurves\nusing Plots # hide\n\n# Define Polygon points\npoints = [\n    [0, 0],\n    [4, 0],\n    [2, 2],\n    [7, 3],\n    [8, 1],\n    [6, -2]\n]\n\n# Construct curve consisting of line segments and clothoids # hide\ndmax = 0.5\nC = construction.curve(dmax, points)\n\n# Plot Polygon points # hide\nx = [p[1] for p in points] # hide\ny = [p[2] for p in points] # hide\nscatter(x, y, label=\"\") # hide\nplot!(x, y, label=\"\", ls=:dash, color=:black, alpha=0.3) # hide\n\n# Plot curve # hide\nplot!(C, lc=1) # hide\n\nplot!(axis=false, grid=false) # hide\nsavefig(\"demoplot.svg\") # hide\nplot!() # hideBesides the x(s) y(s) coordinates, many other quantities are available.svec = [0:0.01:smax(C);]\nϕ = tangentangle.(C, svec)\np0 = plot(svec, ϕ, xlabel=\"s\", ylabel=\"tangentangle\", label=\"\") # hide\nθ = radialangle.(C, svec)\np1 = plot(svec, θ, xlabel=\"s\", ylabel=\"radialangle\", label=\"\") # hide\nκ = curvature.(C, svec)\np2 = plot(svec, κ, xlabel=\"s\", ylabel=\"curvature\", label=\"\") # hide\ndκ = dcurvature.(C, svec)\np3 = plot(svec, dκ, xlabel=\"s\", ylabel=\"dcurvature\", label=\"\") # hide\nplot(p0, p1, p2, p3, layout=(2, 2)) # hide"
 },
 
 {
-    "location": "index.html#Curve-Types-1",
-    "page": "SmoothCurves.jl",
-    "title": "Curve Types",
-    "category": "section",
-    "text": "Curve\nClothoid\nLineSegment\nArcSegment"
+    "location": "curve.html#",
+    "page": "Interface",
+    "title": "Interface",
+    "category": "page",
+    "text": ""
 },
 
 {
-    "location": "index.html#Curve-Interface-1",
-    "page": "SmoothCurves.jl",
-    "title": "Curve Interface",
+    "location": "curve.html#Curve-1",
+    "page": "Interface",
+    "title": "Curve",
     "category": "section",
-    "text": "smax\npoint\nstartpoint\nendpoint\ndpoint\nlength\ndlength\ncurvature\ndcurvature\ntangentangle\nradialangle\n"
+    "text": "Curve"
+},
+
+{
+    "location": "curve.html#Interface-1",
+    "page": "Interface",
+    "title": "Interface",
+    "category": "section",
+    "text": "smax\npoint\nstartpoint\nendpoint\ndpoint\nlength\ndlength\ncurvature\ndcurvature\ntangentangle\nradialangle"
+},
+
+{
+    "location": "polycurve.html#",
+    "page": "PolyCurve",
+    "title": "PolyCurve",
+    "category": "page",
+    "text": ""
+},
+
+{
+    "location": "polycurve.html#PolyCurve-1",
+    "page": "PolyCurve",
+    "title": "PolyCurve",
+    "category": "section",
+    "text": ""
+},
+
+{
+    "location": "polycurve.html#Additional-Functions-1",
+    "page": "PolyCurve",
+    "title": "Additional Functions",
+    "category": "section",
+    "text": "SmoothCurves.subcurveindex\nSmoothCurves.subcurveparameter\nSmoothCurves.dispatch\n"
+},
+
+{
+    "location": "linesegment.html#",
+    "page": "LineSegment",
+    "title": "LineSegment",
+    "category": "page",
+    "text": ""
+},
+
+{
+    "location": "linesegment.html#LineSegment-1",
+    "page": "LineSegment",
+    "title": "LineSegment",
+    "category": "section",
+    "text": ""
+},
+
+{
+    "location": "linesegment.html#Additional-Functions-1",
+    "page": "LineSegment",
+    "title": "Additional Functions",
+    "category": "section",
+    "text": "direction"
+},
+
+{
+    "location": "arcsegment.html#",
+    "page": "ArcSegment",
+    "title": "ArcSegment",
+    "category": "page",
+    "text": ""
+},
+
+{
+    "location": "arcsegment.html#ArcSegment-1",
+    "page": "ArcSegment",
+    "title": "ArcSegment",
+    "category": "section",
+    "text": ""
+},
+
+{
+    "location": "arcsegment.html#Additional-Functions-1",
+    "page": "ArcSegment",
+    "title": "Additional Functions",
+    "category": "section",
+    "text": "ArcSegment"
 },
 
 {
@@ -70,54 +150,6 @@ var documenterSearchIndex = {"docs": [
     "title": "Clothoid Fitting",
     "category": "section",
     "text": "x(s) = int_0^s cos(lambda t^2) mathrmdt\n     = int_0^s cos(theta fract^2s^2) mathrmdt\n     = frac1sqrttheta s int_0^sqrttheta cos(t^2) mathrmdt\n     = frac1sqrttheta s mathrmF_cos(sqrttheta)\n\ny(s) = int_0^s sin(lambda t^2) mathrmdt\n     = int_0^s sin(theta fract^2s^2) mathrmdt\n     = frac1sqrttheta s int_0^sqrttheta sin(t^2) mathrmdt\n     = frac1sqrttheta s mathrmF_sin(sqrttheta)Minimum distance from the corner pointd = fracycostheta\n  = s fracmathrmF_sin(sqrttheta)sqrttheta costhetaGiven a specific distance d choose parameter s tos = d fracsqrttheta costhetamathrmF_sin(sqrttheta)The total shift in x direction is thenmathrmshift = d (sin theta + cos theta fracmathrmF_cos(sqrttheta)mathrmF_sin(sqrttheta))"
-},
-
-{
-    "location": "arcsegment.html#",
-    "page": "ArcSegment",
-    "title": "ArcSegment",
-    "category": "page",
-    "text": ""
-},
-
-{
-    "location": "arcsegment.html#ArcSegment-1",
-    "page": "ArcSegment",
-    "title": "ArcSegment",
-    "category": "section",
-    "text": ""
-},
-
-{
-    "location": "arcsegment.html#Additional-Functions-1",
-    "page": "ArcSegment",
-    "title": "Additional Functions",
-    "category": "section",
-    "text": "ArcSegment"
-},
-
-{
-    "location": "polycurve.html#",
-    "page": "PolyCurve",
-    "title": "PolyCurve",
-    "category": "page",
-    "text": ""
-},
-
-{
-    "location": "polycurve.html#PolyCurve-1",
-    "page": "PolyCurve",
-    "title": "PolyCurve",
-    "category": "section",
-    "text": ""
-},
-
-{
-    "location": "polycurve.html#Additional-Functions-1",
-    "page": "PolyCurve",
-    "title": "Additional Functions",
-    "category": "section",
-    "text": "SmoothCurves.subcurveindex\nSmoothCurves.subcurveparameter\nSmoothCurves.dispatch\n"
 },
 
 {
