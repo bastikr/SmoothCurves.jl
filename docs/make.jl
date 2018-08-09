@@ -8,10 +8,14 @@ makedocs(
     format=:html,
     modules=[SmoothCurves],
     pages=[
-        "index.md",
-        "clothoid.md",
-        "arcsegment.md",
-        "polycurve.md",
+        "Introduction" => "index.md",
+        "Curves" => [
+            "Interface" => "curve.md",
+            "polycurve.md",
+            "linesegment.md",
+            "arcsegment.md",
+            "clothoid.md"
+        ],
         "frenetframe.md",
         "construction.md",
         "API" => "api.md"
