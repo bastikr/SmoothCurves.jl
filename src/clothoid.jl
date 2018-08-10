@@ -63,26 +63,26 @@ end
 # Implement Curve interface
 smax(C::Clothoid) = C.l1 - C.l0
 
-length(C::Clothoid, s::Real) = s
-dlength(C::Clothoid, s::Real) = 1.
+length_unchecked(C::Clothoid, s::Real) = s
+dlength_unchecked(C::Clothoid, s::Real) = 1.
 
-tangentangle(C::Clothoid, s::Real) = normalize_angle(C.rotation + C.λ*standardlength(C, s)^2)
-function radialangle(C::Clothoid, s::Real)
+tangentangle_unchecked(C::Clothoid, s::Real) = normalize_angle(C.rotation + C.λ*standardlength(C, s)^2)
+function radialangle_unchecked(C::Clothoid, s::Real)
     kappa = curvature(C, s)
     sign_ = kappa==0 ? 1 : sign(kappa)
     normalize_angle(C.rotation + C.λ*standardlength(C, s)^2 - sign_*π/2)
 end
 
-curvature(C::Clothoid, s::Real) = 2*C.λ*standardlength(C, s)
-dcurvature(C::Clothoid, s::Real) = 2*C.λ
+curvature_unchecked(C::Clothoid, s::Real) = 2*C.λ*standardlength(C, s)
+dcurvature_unchecked(C::Clothoid, s::Real) = 2*C.λ
 
-function point(C::Clothoid, s::Real)
+function point_unchecked(C::Clothoid, s::Real)
     p = fresnel(C.λ, standardlength(C, s))::SVector{2, Float64}
     p_r = rotate2d(C.rotation, p[1] - C.shift, p[2])::SVector{2, Float64}
     return p_r + C.origin
 end
 
-function dpoint(C::Clothoid, s::Real)
+function dpoint_unchecked(C::Clothoid, s::Real)
     l_ = standardlength(C, s)
     dx = cos(C.λ*l_^2)
     dy = sin(C.λ*l_^2)

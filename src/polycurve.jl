@@ -8,11 +8,13 @@ Collection of curves joined at their start and endpoints.
 """
 struct PolyCurve <: Curve
     curves::Vector
-    cum_s::Vector{Float64}
+    smax::Vector{Float64}
+    cum_smax::Vector{Float64}
 
     function PolyCurve(curves...)
-        cum_s = cumsum(collect(smax.(curves)))
-        new(collect(curves), cum_s)
+        smax_ = collect(smax.(curves))
+        cum_smax = cumsum(smax_)
+        new(collect(curves), smax_, cum_smax)
     end
 end
 
@@ -22,13 +24,17 @@ end
 Index of the subcurve reached at the given parameter `s`.
 """
 function subcurveindex(C::PolyCurve, s::Float64)
-    if s>C.cum_s[end]
-        return length(C.curves)
-    end
-    findfirst(x->(x-s>=0), C.cum_s)
+    checkdomain(C, s)
+    findfirst(x->(x-s>=0), C.cum_smax)
 end
 
-subcurveparameter(C::PolyCurve, s::Float64, index::Int64) = index==1 ? s : s - C.cum_s[index-1]
+function subcurveparameter(C::PolyCurve, s::Float64, index::Int64)
+    s_i = index==1 ? s : s - C.cum_smax[index-1]
+    if s_i>C.smax[index] # Numerical inaccuracy
+        s_i = C.smax[index]
+    end
+    return s_i
+end
 
 """
     subcurveparameter(C::PolyCurve, s)
@@ -52,10 +58,10 @@ end
 
 # Implement curve interface
 
-smax(C::PolyCurve) = C.cum_s[end]
-point(C::PolyCurve, s::Real) = dispatch(point, C, s)
-dpoint(C::PolyCurve, s::Real) = dispatch(dpoint, C, s)
-function length(C::PolyCurve, s::Real)
+smax(C::PolyCurve) = C.cum_smax[end]
+point_unchecked(C::PolyCurve, s::Real) = dispatch(point_unchecked, C, s)
+dpoint_unchecked(C::PolyCurve, s::Real) = dispatch(dpoint_unchecked, C, s)
+function length_unchecked(C::PolyCurve, s::Real)
     s_ = convert(Float64, s)
     i = subcurveindex(C, s_)
     l = 0.
@@ -65,10 +71,10 @@ function length(C::PolyCurve, s::Real)
     s_i = subcurveparameter(C, s_, i)
     l + length(C.curves[i], s_i)
 end
-dlength(C::PolyCurve, s::Real) = dispatch(dlength, C, s)
-tangentangle(C::PolyCurve, s::Real) = dispatch(tangentangle, C, s)
-radialangle(C::PolyCurve, s::Real) = dispatch(radialangle, C, s)
-curvature(C::PolyCurve, s::Real) = dispatch(curvature, C, s)
-dcurvature(C::PolyCurve, s::Real) = dispatch(dcurvature, C, s)
+dlength_unchecked(C::PolyCurve, s::Real) = dispatch(dlength_unchecked, C, s)
+tangentangle_unchecked(C::PolyCurve, s::Real) = dispatch(tangentangle_unchecked, C, s)
+radialangle_unchecked(C::PolyCurve, s::Real) = dispatch(radialangle_unchecked, C, s)
+curvature_unchecked(C::PolyCurve, s::Real) = dispatch(curvature_unchecked, C, s)
+dcurvature_unchecked(C::PolyCurve, s::Real) = dispatch(dcurvature_unchecked, C, s)
 startpoint(C::PolyCurve) = startpoint(C.curves[1])
 endpoint(C::PolyCurve) = endpoint(C.curves[end])

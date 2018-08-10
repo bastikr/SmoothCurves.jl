@@ -12,7 +12,9 @@ function test_curvefunctions(C::SmoothCurves.Curve)
     @test SmoothCurves.startpoint(C) == SmoothCurves.point(C, 0)
     @test SmoothCurves.endpoint(C) == SmoothCurves.point(C, smax(C))
 
-    d_ds = central_fdm(3, 1)
+    d_ds_forward = forward_fdm(3, 1)
+    d_ds_central = central_fdm(3, 1)
+    d_ds_backward = backward_fdm(3, 1)
 
     point(s) = SmoothCurves.point(C, s)
     dpoint(s) = SmoothCurves.dpoint(C, s)
@@ -23,8 +25,15 @@ function test_curvefunctions(C::SmoothCurves.Curve)
     curvature(s) = SmoothCurves.curvature(C, s)
     dcurvature(s) = SmoothCurves.dcurvature(C, s)
 
-    Δs = SmoothCurves.smax(C)/10
-    for s=0:Δs:smax(C)
+    for s=linspace(0, smax(C), 10)
+        if abs(s)<0.01
+            d_ds = d_ds_forward
+        elseif abs(s-smax(C))<0.01
+            d_ds = d_ds_backward
+        else
+            d_ds = d_ds_central
+        end
+
         # Test dp/ds
         @test dpoint(s) ≈ d_ds(point, s) atol=1e-12
 
@@ -51,7 +60,7 @@ function test_curvefunctions(C::SmoothCurves.Curve)
         t′ = d_ds(dpoint, s)/dlength(s)^2
         u_n = [-t[2], t[1]]
         k = dot(u_n, t′)
-        @test curvature(s) ≈ k atol=1e-12
+        @test curvature(s) ≈ k atol=1e-10
 
         # Test dcurvature
         @test dcurvature(s) ≈ d_ds(curvature, s) atol=1e-12

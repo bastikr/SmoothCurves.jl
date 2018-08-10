@@ -10,13 +10,13 @@ C_l1 = LineSegment([4.2, 2], [4.2, 4.4])
 C_l2 = LineSegment([4.2, 4.4], [1.6, 7])
 C = PolyCurve(C_l0, C_l1, C_l2)
 
-@test SmoothCurves.subcurveindex(C, -1.) == 1
+@test_throws ArgumentError SmoothCurves.subcurveindex(C, -1.)
 @test SmoothCurves.subcurveindex(C, 3.) == 1
 @test SmoothCurves.subcurveindex(C, 5.) == 2
 @test SmoothCurves.subcurveindex(C, 7.) == 3
 @test SmoothCurves.subcurveindex(C, 9.) == 3
 
-@test SmoothCurves.subcurveparameter(C, -1.) ≈ -1
+@test_throws ArgumentError SmoothCurves.subcurveparameter(C, -1.)
 @test SmoothCurves.subcurveparameter(C, 3.) ≈ 3
 @test SmoothCurves.subcurveparameter(C, 5.) ≈ 1.8
 @test SmoothCurves.subcurveparameter(C, 7.) ≈ 1.4

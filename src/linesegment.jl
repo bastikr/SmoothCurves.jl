@@ -26,26 +26,26 @@ direction(C::LineSegment) = normalize(C.p1 - C.p0)
 # Implement Curve interface
 smax(C::LineSegment) = norm(C.p1 - C.p0)
 
-length(C::LineSegment, s::Real) = s
-dlength(C::LineSegment, s::Real) = 1.
+length_unchecked(C::LineSegment, s::Real) = s
+dlength_unchecked(C::LineSegment, s::Real) = 1.
 
-function tangentangle(C::LineSegment, s::Real)
+function tangentangle_unchecked(C::LineSegment, s::Real)
     direction = normalize(C.p1 - C.p0)
     atan2(direction[2], direction[1])
 end
-function radialangle(C::LineSegment, s::Real)
+function radialangle_unchecked(C::LineSegment, s::Real)
     direction = normalize(C.p1 - C.p0)
     atan2(-direction[1], direction[2])
 end
 
-curvature(C::LineSegment, s::Real) = 0.
-dcurvature(C::LineSegment, s::Real) = 0.
+curvature_unchecked(C::LineSegment, s::Real) = 0.
+dcurvature_unchecked(C::LineSegment, s::Real) = 0.
 
-function point(C::LineSegment, s::Real)
+function point_unchecked(C::LineSegment, s::Real)
     r = s/smax(C)
     (1-r)*C.p0 + r*C.p1
 end
-dpoint(C::LineSegment, s::Real) = direction(C)
+dpoint_unchecked(C::LineSegment, s::Real) = direction(C)
 
 startpoint(C::LineSegment) = C.p0
 endpoint(C::LineSegment) = C.p1
