@@ -44,12 +44,12 @@ annotate!(p_annotate..., text("\\Delta x", 8, :center)) # hide
 p_annotate = p1 - 0.5*δ*direction(C_l0) - 0.2*n0 # hide
 annotate!(p_annotate..., text("\\delta", 8, :center)) # hide
 
-l = length(C_l1)*dot(direction(C_l0), direction(C_l1))
+l = length(C_l1)*dot(direction(C_l0), direction(C_l1)) # hide
 C_l0_extension = LineSegment(p1, l*direction(C_l0)) # hide
 plot!(C_l0_extension, lc=:black, ls=:dash) # hide
 
 # Plot normal to first line # hide
-p_ = p1 - δ*direction(C_l0)
+p_ = p1 - δ*direction(C_l0) # hide
 C_l0_normal = LineSegment(p_, p_ + Δy*n0) # hide
 plot!(C_l0_normal, lc=:black, ls=:solid) # hide
 p_annotate = point(C_l0_normal, 0) - 0.2*direction(C_l0) + 0.5*n0*length(C_l0_normal) # hide
