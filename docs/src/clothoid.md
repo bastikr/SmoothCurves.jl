@@ -84,8 +84,10 @@ The clothoid in standard orientation is defined via the general Fresnel integral
 
 ```math
 x(s) = \int_0^s \cos(\lambda t^2) \mathrm{d}t
+     = \frac{1}{\sqrt{\lambda}} \int_0^{\sqrt{\lambda}s} \cos(t^2) \mathrm{d}t
 \\
 y(s) = \int_0^s \sin(\lambda t^2) \mathrm{d}t
+     = \frac{1}{\sqrt{\lambda}} \int_0^{\sqrt{\lambda}s} \sin(t^2) \mathrm{d}t
 ```
 
 ## Properties
@@ -102,7 +104,19 @@ l(s) = s
 \theta(s) = \lambda s^2
 ```
 
-## Clothoid Fitting
+## Power series
+
+```math
+x(s) = \int_0^s \cos(\lambda t^2) \mathrm{d}t
+     = \sum_{n=0}^\infty (-1)^n \frac{x^{4n+1}}{(2n)!(4n+1)}
+     = x - \frac{1}{10} x^5 + \frac{1}{216} x^9 - \frac{1}{9360} x^{13} + \frac{1}{685440} x^{17} - \frac{1}{76204800} x^{21} + \frac{1}{11975040000} x^{25} - \frac{1}{2528170444800} x^{29} + \dots
+\\
+y(s) = \int_0^s \sin(\lambda t^2) \mathrm{d}t
+     = \sum_{n=0}^\infty (-1)^n \frac{x^{4n+3}}{(2n+1)!(4n+3)}
+     = \frac{1}{3} x^3 - \frac{1}{42} x^7 + \frac{1}{1320} x^{11} - \frac{1}{75600} x^{15} + \frac{1}{6894720} x^{19} + \frac{1}{918086400} x^{23} + \frac{1}{168129561600} x^{27} + \frac{1}{40537905408000} x^{31} + \dots
+```
+
+## Fitting
 
 ```math
 x(s) = \int_0^s \cos(\lambda t^2) \mathrm{d}t
