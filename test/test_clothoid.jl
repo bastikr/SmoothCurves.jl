@@ -10,9 +10,12 @@ function Fsin(λ::Float64, s::Float64)
     return QuadGK.quadgk(x->sin(λ*x^2), 0., s)[1]::Float64
 end
 
+θmax = π/2
+
 for λ in -5:0.5:5
-    @test SmoothCurves.fresnel(λ, 2.)[1] ≈ Fcos(λ, 2.)
-    @test SmoothCurves.fresnel(λ, 2.)[2] ≈ Fsin(λ, 2.)
+    s = sqrt(θmax/max(0.1, abs(λ)))
+    @test SmoothCurves.fresnel(λ, s)[1] ≈ Fcos(λ, s)
+    @test SmoothCurves.fresnel(λ, s)[2] ≈ Fsin(λ, s)
 end
 
 include("curvefunctions_testsuite.jl")
