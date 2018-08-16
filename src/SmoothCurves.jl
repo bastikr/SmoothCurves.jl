@@ -2,9 +2,13 @@ module SmoothCurves
 
 export Curve, Pose, LineSegment, ArcSegment, Clothoid, PolyCurve,
        smax, length, dlength,
+       length_unchecked, dlength_unchecked,
        tangentangle, radialangle,
+       tangentangle_unchecked, radialangle_unchecked,
        curvature, dcurvature,
+       curvature_unchecked, dcurvature_unchecked,
        point, dpoint, startpoint, endpoint,
+       point_unchecked, dpoint_unchecked,
        direction,
        frenet,
        construction
