@@ -33,6 +33,7 @@ PolyCurve
 [`dcurvature`](@ref)\
 [`tangentangle`](@ref)\
 [`radialangle`](@ref)\
+[`samples`](@ref)\
 
 ```@docs
 smax
@@ -46,6 +47,7 @@ curvature
 dcurvature
 tangentangle
 radialangle
+samples
 ```
 
 ## Curve specific functions

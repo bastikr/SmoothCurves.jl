@@ -15,4 +15,5 @@
 [`curvature`](@ref)\
 [`dcurvature`](@ref)\
 [`tangentangle`](@ref)\
-[`radialangle`](@ref)
+[`radialangle`](@ref)\
+[`samples`](@ref)

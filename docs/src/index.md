@@ -20,7 +20,8 @@ and the possibility to chain them together as [PolyCurve](@ref). All curves impl
 [`curvature`](@ref)\
 [`dcurvature`](@ref)\
 [`tangentangle`](@ref)\
-[`radialangle`](@ref)
+[`radialangle`](@ref)\
+[`samples`](@ref)
 
 Additionally, [Construction](@ref) methods which generate smooth curves from given polygon paths are provided.
 

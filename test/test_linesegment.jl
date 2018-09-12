@@ -6,6 +6,7 @@ l = LineSegment([1, 2], [4, 6])
 @test point(l, 0) == [1, 2]
 @test point(l, smax(l)) == [4, 6]
 @test length(l) ≈ 5
+@test samples(l, 0.1) ≈ [0., smax(l)]
 end
 
 include("curvefunctions_testsuite.jl")

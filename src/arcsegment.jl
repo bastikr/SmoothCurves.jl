@@ -48,3 +48,8 @@ function dpoint_unchecked(C::ArcSegment, Δϕ::Real)
     ϕ = radialangle(C, Δϕ)
     C.radius*sign(C)*SVector(-sin(ϕ), cos(ϕ))
 end
+
+function samples(C::ArcSegment, e::Real)
+    n = max(1, ceil(Int, abs(C.angle1 - C.angle0)/e)) + 2
+    return collect(range(0, stop=abs(C.angle1-C.angle0), length=n))
+end

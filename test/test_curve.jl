@@ -33,6 +33,7 @@ s = 0.25
 @test_throws ErrorException dpoint(C, s)
 @test_throws ErrorException startpoint(C)
 @test_throws ErrorException endpoint(C)
+@test_throws ErrorException samples(C, 0.1)
 
 s = 0.75
 @test_throws ArgumentError length(C, s)

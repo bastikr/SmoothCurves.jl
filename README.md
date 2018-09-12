@@ -31,6 +31,7 @@ Curve Interface:
 * `startpoint(C)`
 * `endpoint(C)`
 * `dpoint(C, s)`
+* `samples(C, e)`
 
 All derivatives are given in respect to the parameter `s`.
 

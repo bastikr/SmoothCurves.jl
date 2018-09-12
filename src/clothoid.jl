@@ -126,3 +126,21 @@ function dpoint_unchecked(C::Clothoid, s::Real)
     dy = sin(C.λ*l_^2)
     return rotate2d(C.rotation, dx, dy)
 end
+
+function samples(C::Clothoid, e::Real)
+    if C.l0==0
+        θmax = C.λ*standardlength(C, smax(C))^2
+        n = ceil(Int, max(2, abs(θmax/e))) + 1
+        θvec = range(0, stop=θmax, length=n)
+        lvec = sqrt.(abs.(θvec/C.λ))
+        return lvec
+    elseif C.l1==0
+        θmax = C.λ*standardlength(C, 0)^2
+        n = ceil(Int, max(2, abs(θmax/e))) + 1
+        θvec = range(θmax, stop=0, length=n)
+        lvec = sqrt.(abs.(θvec/C.λ))
+        return -lvec .- C.l0
+    else
+        error("Not implemented")
+    end
+end

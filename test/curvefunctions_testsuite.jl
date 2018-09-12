@@ -1,7 +1,7 @@
 using Test
 import SmoothCurves
 
-using LinearAlgebra: norm, dot
+using LinearAlgebra: norm, normalize, dot
 
 using ForwardDiff
 
@@ -56,5 +56,14 @@ function test_curvefunctions(C::SmoothCurves.Curve)
 
         # Test dcurvature
         @test dcurvature(s) ≈ d_ds(curvature, s) atol=1e-13
+    end
+
+    for maxangle=0.1:0.1:1
+        svec = samples(C, maxangle)
+        for i=1:Base.length(svec)-1
+            v0 = dpoint(svec[i])
+            v1 = dpoint(svec[i+1])
+            @test dot(normalize(v0), normalize(v1)) >= cos(maxangle)
+        end
     end
 end

@@ -9,6 +9,7 @@ export Curve, Pose, LineSegment, ArcSegment, Clothoid, PolyCurve,
        curvature_unchecked, dcurvature_unchecked,
        point, dpoint, startpoint, endpoint,
        point_unchecked, dpoint_unchecked,
+       samples,
        direction,
        frenet,
        construction

@@ -25,6 +25,8 @@ C = PolyCurve(C_l0, C_l1, C_l2)
 @test smax(C) == smax(C_l0) + smax(C_l1) + smax(C_l2)
 @test length(C) == length(C_l0) + length(C_l1) + length(C_l2)
 @test length(C, smax(C)) == length(C)
+
+@test samples(C, 0.01) == [0, smax(C_l0), smax(C_l0)+smax(C_l1), smax(C)]
 end
 
 C_arc = ArcSegment([1, 3], 2., 0., π)

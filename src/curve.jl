@@ -127,6 +127,13 @@ Return the last point ``C(s_\\mathrm{max}`` of the curve.
 """
 endpoint(C::Curve) = point_unchecked(C, smax(C))
 
+"""
+    samples(C::Curve, e::Real)
+
+Distribute values between 0 and smax in order to generate a "smooth" polygon.
+"""
+samples(C::Curve, e::Real) = error("Not Implemented")
+
 
 struct Pose
     x::Float64

@@ -51,3 +51,5 @@ dpoint_unchecked(C::LineSegment, s::Real) = direction(C)
 
 startpoint(C::LineSegment) = C.p0
 endpoint(C::LineSegment) = C.p1
+
+samples(C::LineSegment, e::Real) = Float64[0., smax(C)]

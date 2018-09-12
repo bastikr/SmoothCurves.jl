@@ -76,3 +76,11 @@ curvature_unchecked(C::PolyCurve, s::Real) = dispatch(curvature_unchecked, C, s)
 dcurvature_unchecked(C::PolyCurve, s::Real) = dispatch(dcurvature_unchecked, C, s)
 startpoint(C::PolyCurve) = startpoint(C.curves[1])
 endpoint(C::PolyCurve) = endpoint(C.curves[end])
+
+function samples(C::PolyCurve, e::Real)
+    svec = samples(C.curves[1], e)
+    for i=2:length(C.curves)
+        append!(svec, samples(C.curves[i], e)[2:end] .+ C.cum_smax[i-1])
+    end
+    svec
+end
