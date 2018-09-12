@@ -1,6 +1,6 @@
 using RecipesBase
 
-using .Pose
+import .Pose
 
 
 @recipe function f(pose::Pose)

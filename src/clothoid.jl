@@ -3,7 +3,7 @@ import Base: length
 using QuadGK
 using StaticArrays: SVector
 
-doc"""
+"""
     Clothoid(origin, shift, rotation, λ, l0, l1)
 
 Describes a clothoid which in standard orientation.
@@ -11,9 +11,9 @@ Describes a clothoid which in standard orientation.
 It is here defined as
 
 ```math
-x(s) = \int_0^s \cos(λ t^2) \mathrm{d}t
+x(s) = \\int_0^s \\cos(λ t^2) \\mathrm{d}t
 \\
-y(s) = \int_0^s \sin(λ t^2) \mathrm{d}t
+y(s) = \\int_0^s \\sin(λ t^2) \\mathrm{d}t
 ```
 
 for parameter ``s ∈ [l0, l1]``. (Note that `l1` may also be smaller to `l0`).
@@ -85,15 +85,15 @@ function fresnel_numericintegration(λ::Real, s::Real)
     QuadGK.quadgk(f, 0., s_)[1]::SVector{2, Float64}
 end
 
-doc"""
+"""
     fresnel(λ, s)
 
 Solve the generalized Fresnel integrals
 
 ```math
-x(s) = \int_0^s \cos(λ t^2) \mathrm{d}t
+x(s) = \\int_0^s \\cos(λ t^2) \\mathrm{d}t
 \\
-y(s) = \int_0^s \sin(λ t^2) \mathrm{d}t
+y(s) = \\int_0^s \\sin(λ t^2) \\mathrm{d}t
 ```
 """
 fresnel(λ::Real, s::Real) = fresnel_powerseries(λ, s)

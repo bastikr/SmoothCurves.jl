@@ -1,7 +1,7 @@
 module frenet
 
-using ..Curve, ..Pose, ..pose
-using ..normalize_angle, ..rotate2d
+import ..Curve, ..Pose, ..pose
+import ..normalize_angle, ..rotate2d
 
 
 """

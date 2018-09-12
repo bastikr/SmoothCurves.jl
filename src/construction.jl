@@ -2,11 +2,11 @@ module construction
 
 using StaticArrays: SVector
 
-using ..deviation
-using ..Curve, ..smax, ..point
-using ..LineSegment
-using ..Clothoid, ..fresnel
-using ..PolyCurve
+import ..deviation
+import ..Curve, ..smax, ..point
+import ..LineSegment
+import ..Clothoid, ..fresnel
+import ..PolyCurve
 
 
 function clothoidcorner(dmax::Real, p0, p1, p2)
