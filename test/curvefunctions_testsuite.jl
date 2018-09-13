@@ -3,6 +3,8 @@ import SmoothCurves
 
 using LinearAlgebra: norm, dot
 
+using ForwardDiff
+
 
 function test_curvefunctions(C::SmoothCurves.Curve)
     l = SmoothCurves.length(C)
@@ -12,9 +14,7 @@ function test_curvefunctions(C::SmoothCurves.Curve)
     @test SmoothCurves.startpoint(C) == SmoothCurves.point(C, 0)
     @test SmoothCurves.endpoint(C) == SmoothCurves.point(C, smax(C))
 
-    d_ds_forward = forward_fdm(3, 1)
-    d_ds_central = central_fdm(3, 1)
-    d_ds_backward = backward_fdm(3, 1)
+    d_ds = ForwardDiff.derivative
 
     point(s) = SmoothCurves.point(C, s)
     dpoint(s) = SmoothCurves.dpoint(C, s)
@@ -26,16 +26,8 @@ function test_curvefunctions(C::SmoothCurves.Curve)
     dcurvature(s) = SmoothCurves.dcurvature(C, s)
 
     for s=range(0, stop=smax(C), length=10)
-        if abs(s)<0.01
-            d_ds = d_ds_forward
-        elseif abs(s-smax(C))<0.01
-            d_ds = d_ds_backward
-        else
-            d_ds = d_ds_central
-        end
-
         # Test dp/ds
-        @test dpoint(s) ≈ d_ds(point, s) atol=1e-12
+        @test dpoint(s) ≈ d_ds(point, s) atol=1e-10
 
         # Test l
         @test d_ds(length, s) ≈ norm(dpoint(s))
@@ -45,15 +37,15 @@ function test_curvefunctions(C::SmoothCurves.Curve)
 
         # Test tangentangle
         phi_t = tangentangle(s)
-        @test cos(phi_t) ≈ dpoint(s)[1]/dlength(s) atol=1e-12
-        @test sin(phi_t) ≈ dpoint(s)[2]/dlength(s) atol=1e-12
+        @test cos(phi_t) ≈ dpoint(s)[1]/dlength(s) atol=1e-13
+        @test sin(phi_t) ≈ dpoint(s)[2]/dlength(s) atol=1e-13
 
         # Test radialangle
         phi_r = radialangle(s)
         κ = curvature(s)
         sign_ = κ==0 ? 1 : sign(κ)
-        @test cos(phi_r) ≈ cos(phi_t - sign_*π/2) atol=1e-12
-        @test sin(phi_r) ≈ sin(phi_t - sign_*π/2) atol=1e-12
+        @test cos(phi_r) ≈ cos(phi_t - sign_*π/2) atol=1e-13
+        @test sin(phi_r) ≈ sin(phi_t - sign_*π/2) atol=1e-13
 
         # Test curvature
         t = dpoint(s)/dlength(s)
@@ -63,6 +55,6 @@ function test_curvefunctions(C::SmoothCurves.Curve)
         @test curvature(s) ≈ k atol=1e-10
 
         # Test dcurvature
-        @test dcurvature(s) ≈ d_ds(curvature, s) atol=1e-12
+        @test dcurvature(s) ≈ d_ds(curvature, s) atol=1e-13
     end
 end
