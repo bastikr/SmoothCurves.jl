@@ -1,5 +1,7 @@
 module construction
 
+using LinearAlgebra: norm, normalize
+
 using StaticArrays: SVector
 
 import ..deviation

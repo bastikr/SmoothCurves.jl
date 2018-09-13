@@ -25,8 +25,8 @@ end
     aspect_ratio --> :equal
     label --> ""
 
-    n = round(length(curve)/spacing, RoundUp)
-    svec = linspace(0., smax(curve), n)
+    n = round(Int, length(curve)/spacing, RoundUp)
+    svec = range(0., stop=smax(curve), length=n)
     points = point.(curve, svec)
     [p[1] for p in points], [p[2] for p in points]
 end

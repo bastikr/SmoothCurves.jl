@@ -1,5 +1,7 @@
 import Base: length
 
+using LinearAlgebra: norm, normalize
+
 using StaticArrays: SVector
 
 """
@@ -31,11 +33,11 @@ dlength_unchecked(C::LineSegment, s::Real) = 1.
 
 function tangentangle_unchecked(C::LineSegment, s::Real)
     direction = normalize(C.p1 - C.p0)
-    atan2(direction[2], direction[1])
+    atan(direction[2], direction[1])
 end
 function radialangle_unchecked(C::LineSegment, s::Real)
     direction = normalize(C.p1 - C.p0)
-    atan2(-direction[1], direction[2])
+    atan(-direction[1], direction[2])
 end
 
 curvature_unchecked(C::LineSegment, s::Real) = 0.

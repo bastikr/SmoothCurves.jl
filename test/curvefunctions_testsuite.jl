@@ -1,7 +1,7 @@
-using Base.Test
+using Test
 import SmoothCurves
 
-using FDM
+using LinearAlgebra: norm, dot
 
 
 function test_curvefunctions(C::SmoothCurves.Curve)
@@ -25,7 +25,7 @@ function test_curvefunctions(C::SmoothCurves.Curve)
     curvature(s) = SmoothCurves.curvature(C, s)
     dcurvature(s) = SmoothCurves.dcurvature(C, s)
 
-    for s=linspace(0, smax(C), 10)
+    for s=range(0, stop=smax(C), length=10)
         if abs(s)<0.01
             d_ds = d_ds_forward
         elseif abs(s-smax(C))<0.01

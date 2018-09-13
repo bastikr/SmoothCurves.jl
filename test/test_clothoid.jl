@@ -1,5 +1,7 @@
-using Base.Test
+using Test
 using SmoothCurves
+
+using QuadGK
 
 
 function Fcos(λ::Float64, s::Float64)
