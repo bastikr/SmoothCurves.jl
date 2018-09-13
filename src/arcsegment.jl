@@ -41,10 +41,10 @@ dcurvature_unchecked(C::ArcSegment, Δϕ::Real) = 0.
 
 function point_unchecked(C::ArcSegment, Δϕ::Real)
     ϕ = radialangle(C, Δϕ)
-    C.origin + C.radius*SVector{2, Float64}(cos(ϕ), sin(ϕ))
+    C.origin + C.radius*SVector(cos(ϕ), sin(ϕ))
 end
 
 function dpoint_unchecked(C::ArcSegment, Δϕ::Real)
     ϕ = radialangle(C, Δϕ)
-    C.radius*sign(C)*SVector{2, Float64}(-sin(ϕ), cos(ϕ))
+    C.radius*sign(C)*SVector(-sin(ϕ), cos(ϕ))
 end

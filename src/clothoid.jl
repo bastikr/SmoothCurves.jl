@@ -40,15 +40,14 @@ standardlength(C::Clothoid, s::Real) = C.l0 + s
 
 
 function fresnel_powerseries(λ::Real, s::Real)
-    λ_ = convert(Float64, λ)
-    θ = abs(λ_)*s^2
+    θ = abs(λ)*s^2
     if (θ<1e-16)
         return SVector(s, 0.)
     elseif (θ>π/2+0.01)
         throw(ArgumentError("θ=λ*s^2=$θ is not in [-π/2, π/2]."))
     end
-    sqrt_λ = sqrt(abs(λ_))
-    s_ = sqrt_λ*convert(Float64, s)
+    sqrt_λ = sqrt(abs(λ))
+    s_ = sqrt_λ*s
     s4 = s_^4
 
     cx0 =  1
@@ -71,7 +70,7 @@ function fresnel_powerseries(λ::Real, s::Real)
     cy7 = -1/40537905408000
     y = s_^3*(cy0 + s4*(cy1 + s4*(cy2 + s4*(cy3 + s4*(cy4 + s4*(cy5 + s4*(cy6 + s4*cy7)))))))
 
-    return SVector(x/sqrt_λ, sign(λ_)*y/sqrt_λ)
+    return SVector(x/sqrt_λ, sign(λ)*y/sqrt_λ)
 end
 
 
@@ -116,8 +115,8 @@ curvature_unchecked(C::Clothoid, s::Real) = 2*C.λ*standardlength(C, s)
 dcurvature_unchecked(C::Clothoid, s::Real) = 2*C.λ
 
 function point_unchecked(C::Clothoid, s::Real)
-    p = fresnel(C.λ, standardlength(C, s))::SVector{2, Float64}
-    p_r = rotate2d(C.rotation, p[1] - C.shift, p[2])::SVector{2, Float64}
+    p = fresnel(C.λ, standardlength(C, s))
+    p_r = rotate2d(C.rotation, p[1] - C.shift, p[2])
     return p_r + C.origin
 end
 
@@ -125,5 +124,5 @@ function dpoint_unchecked(C::Clothoid, s::Real)
     l_ = standardlength(C, s)
     dx = cos(C.λ*l_^2)
     dy = sin(C.λ*l_^2)
-    return rotate2d(C.rotation, dx, dy)::SVector{2, Float64}
+    return rotate2d(C.rotation, dx, dy)
 end

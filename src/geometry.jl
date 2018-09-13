@@ -2,7 +2,7 @@ using LinearAlgebra: normalize, dot
 
 normalvector(v) = [-v[2], v[1]]
 
-function rotate2d(phi::Float64, x::Float64, y::Float64)
+function rotate2d(phi::Real, x::Real, y::Real)
     c = cos(phi)
     s = sin(phi)
     return SVector(c*x - s*y, s*x + c*y)
