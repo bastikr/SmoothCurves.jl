@@ -1,3 +1,5 @@
 QuadGK
 StaticArrays
 RecipesBase
+ForwardDiff
+Plots
