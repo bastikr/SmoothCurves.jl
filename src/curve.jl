@@ -1,4 +1,4 @@
-import Base: length
+import Base: broadcastable, length
 
 using StaticArrays
 
@@ -8,6 +8,7 @@ Abstract base class for all specialized curve types.
 """
 abstract type Curve end
 
+broadcastable(C::Curve) = Base.Ref(C)
 
 length_unchecked(C::Curve, s::Real) = error("Not Implemented")
 dlength_unchecked(C::Curve, s::Real) = error("Not Implemented")
