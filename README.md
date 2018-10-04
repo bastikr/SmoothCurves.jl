@@ -7,6 +7,7 @@
 
 Create smooth curves from basic curve types.
 
+![Demo plot](https://github.com/bastikr/SmoothCurves.jl/blob/gh-pages/latest/demoplot.svg)
 
 Implemented basic curves:
 
