@@ -16,7 +16,7 @@ x(s) = \\int_0^s \\cos(λ t^2) \\mathrm{d}t
 y(s) = \\int_0^s \\sin(λ t^2) \\mathrm{d}t
 ```
 
-for parameter ``s ∈ [l0, l1]``. (Note that `l1` may also be smaller to `l0`).
+for parameter ``s ∈ [l0, l1]``. (Note that `l1` may also be smaller than `l0`).
 It is placed at `origin`, shifted along the x-axis and rotated around the `origin` by
 the given angle.
 """
